@@ -1,0 +1,189 @@
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model Category {
+  id          String    @id @default(cuid())
+  name        String
+  slug        String    @unique
+  description String?
+  image       String?
+  sortOrder   Int       @default(0)
+  products    Product[]
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+
+  @@index([slug])
+}
+
+model Product {
+  id           String      @id @default(cuid())
+  sku          String      @unique
+  name         String
+  slug         String      @unique
+  description  String
+  price        Float
+  mrp          Float
+  stock        Int         @default(10)
+  metal        String      // Gold, Silver, Rose Gold, Platinum, Artificial
+  purity       String      // 24K, 22K, 18K, 14K, 925
+  stone        String      // Diamond, Emerald, Ruby, Sapphire, Pearl, Polki, Kundan, None
+  occasion     String      // Bridal, Party, Daily Wear, Festive, Gift
+  gender       String      // Women, Men, Unisex, Kids
+  weightGrams  Float
+  images       String      // Pipe-separated or JSON list of image URLs
+  isBestseller Boolean     @default(false)
+  unitsSold    Int         @default(0)
+  status       String      @default("ACTIVE") // ACTIVE, INACTIVE, DRAFT
+  categoryId   String
+  category     Category    @relation(fields: [categoryId], references: [id], onDelete: Cascade)
+  subcategory  String?
+  orderItems   OrderItem[]
+  createdAt    DateTime    @default(now())
+  updatedAt    DateTime    @updatedAt
+
+  @@index([categoryId])
+  @@index([sku])
+  @@index([slug])
+  @@index([status])
+  @@index([isBestseller])
+  @@index([unitsSold])
+}
+
+model HeroSlide {
+  id        String   @id @default(cuid())
+  title     String
+  subtitle  String?
+  ctaText   String   @default("Explore Collection")
+  ctaLink   String   @default("/category/all")
+  imageUrl  String
+  sortOrder Int      @default(0)
+  isActive  Boolean  @default(true)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model User {
+  id           String    @id @default(cuid())
+  name         String
+  phone        String    @unique
+  email        String?   @unique
+  passwordHash String
+  address      String?
+  pincode      String?
+  city         String?
+  state        String?
+  role         String    @default("CUSTOMER") // CUSTOMER, ADMIN
+  orders       Order[]
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+
+  @@index([phone])
+  @@index([email])
+}
+
+model Order {
+  id                String      @id @default(cuid())
+  orderNumber       String      @unique
+  userId            String?
+  user              User?       @relation(fields: [userId], references: [id], onDelete: SetNull)
+  customerName      String
+  customerPhone     String
+  customerEmail     String
+  shippingAddress   String
+  pincode           String
+  city              String
+  state             String
+  subtotal          Float
+  shippingFee       Float       @default(0)
+  discount          Float       @default(0)
+  totalAmount       Float
+  paymentMethod     String      // COD, RAZORPAY
+  paymentStatus     String      @default("PENDING") // PENDING, PAID, FAILED
+  razorpayOrderId   String?
+  razorpayPaymentId String?
+  orderStatus       String      @default("PLACED") // PLACED, CONFIRMED, PROCESSING, SHIPPED, DELIVERED, CANCELLED
+
+  // Shiprocket Logistics details
+  shiprocketOrderId String?
+  shipmentId        String?
+  awbCode           String?
+  courierName       String?
+  trackingUrl       String?
+  shiprocketStatus  String?
+  shiprocketError   String?
+
+  // WhatsApp Alert details
+  whatsappSent      Boolean     @default(false)
+  whatsappError     String?
+  whatsappSentAt    DateTime?
+  whatsappRetryCount Int        @default(0)
+
+  items             OrderItem[]
+  createdAt         DateTime    @default(now())
+  updatedAt         DateTime    @updatedAt
+
+  @@index([orderNumber])
+  @@index([userId])
+  @@index([orderStatus])
+  @@index([paymentStatus])
+}
+
+model OrderItem {
+  id        String   @id @default(cuid())
+  orderId   String
+  order     Order    @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  productId String?
+  product   Product? @relation(fields: [productId], references: [id], onDelete: SetNull)
+  sku       String
+  name      String
+  price     Float
+  quantity  Int      @default(1)
+  image     String?
+  metal     String?
+  purity    String?
+
+  @@index([orderId])
+  @@index([productId])
+}
+
+model SyncConfig {
+  id                  String    @id @default("default")
+  sheetUrl            String    @default("")
+  syncIntervalMinutes Int       @default(15)
+  deactivateMissing   Boolean   @default(false)
+  lastSyncAt          DateTime?
+  lastSyncStatus      String?   // SUCCESS, FAILED, RUNNING
+  lastSyncMessage     String?
+}
+
+model SyncLog {
+  id           String   @id @default(cuid())
+  type         String   // CSV_IMPORT, GOOGLE_SHEET_SYNC
+  source       String
+  totalRows    Int      @default(0)
+  successCount Int      @default(0)
+  errorCount   Int      @default(0)
+  errorsJson   String?  // JSON array of row errors
+  status       String   // SUCCESS, PARTIAL, FAILED
+  createdAt    DateTime @default(now())
+}
+
+model AdminSettings {
+  id                  String   @id @default("default")
+  ownerWhatsappNumber String   @default("+919876543210")
+  shiprocketEmail     String   @default("")
+  shiprocketPassword  String   @default("")
+  shiprocketSandbox   Boolean  @default(true)
+  razorpayKeyId       String   @default("rzp_test_jewellerymate")
+  razorpayKeySecret   String   @default("mock_razorpay_secret_key")
+  whatsappToken       String   @default("")
+  whatsappPhoneId     String   @default("")
+  whatsappProvider    String   @default("mock") // meta, twilio, interakt, mock
+  updatedAt           DateTime @updatedAt
+}

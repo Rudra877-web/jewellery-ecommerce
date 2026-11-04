@@ -1,0 +1,94 @@
+@import "tailwindcss";
+
+@layer base {
+  :root {
+    --bg-primary: #FAF9F6;
+    --bg-surface: #FFFFFF;
+    --text-primary: #1C1917;
+    --text-muted: #78716C;
+    --gold-primary: #D4AF37;
+    --gold-light: #F7E7CE;
+    --gold-dark: #9A7B1C;
+    --gold-accent: #C5A059;
+    --charcoal-900: #121212;
+    --charcoal-800: #1C1917;
+    --charcoal-700: #292524;
+    --border-subtle: #E7E5E4;
+    --border-gold: rgba(212, 175, 55, 0.35);
+  }
+
+  body {
+    background-color: var(--bg-primary);
+    color: var(--text-primary);
+    font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+
+  h1, h2, h3, .font-serif {
+    font-family: 'Cormorant Garamond', Georgia, serif;
+    letter-spacing: -0.01em;
+  }
+}
+
+/* Custom luxury utilities */
+.gold-gradient {
+  background: linear-gradient(135deg, #ECC880 0%, #D4AF37 50%, #9A7B1C 100%);
+}
+
+.gold-gradient-text {
+  background: linear-gradient(135deg, #C5A059 0%, #D4AF37 40%, #8C6D1F 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.gold-border {
+  border: 1px solid rgba(212, 175, 55, 0.35);
+}
+
+.gold-glow {
+  box-shadow: 0 4px 25px -4px rgba(212, 175, 55, 0.25);
+}
+
+.gold-glow-hover:hover {
+  box-shadow: 0 8px 30px -4px rgba(212, 175, 55, 0.35);
+}
+
+.glass-panel {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+}
+
+.glass-panel-dark {
+  background: rgba(18, 18, 18, 0.85);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border: 1px solid rgba(212, 175, 55, 0.2);
+}
+
+/* Micro animations */
+@keyframes shimmer {
+  0% { background-position: -200% 0; }
+  100% { background-position: 200% 0; }
+}
+
+.animate-shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0) 0%, rgba(212,175,55,0.15) 50%, rgba(255,255,255,0) 100%);
+  background-size: 200% 100%;
+  animation: shimmer 2.5s infinite;
+}
+
+/* Custom scrollbars */
+::-webkit-scrollbar {
+  width: 6px;
+  height: 6px;
+}
+::-webkit-scrollbar-track {
+  background: #F5F2EB;
+}
+::-webkit-scrollbar-thumb {
+  background: #D4AF37;
+  border-radius: 9999px;
+}
