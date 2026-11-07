@@ -81,10 +81,13 @@ export async function POST(req: NextRequest) {
             courierName: result.courierName,
             trackingUrl: result.trackingUrl,
             shiprocketStatus: 'SHIPMENT_CREATED',
-            shiprocketError: null,
+            shiprocketError: result.error || null,
           },
         });
-        return NextResponse.json({ success: true, message: 'Shiprocket order recreated with AWB.', order: updated });
+        const msg = result.awbCode
+          ? `Shiprocket order synchronized with AWB: ${result.awbCode}`
+          : `Shiprocket order #${result.shiprocketOrderId} created, but AWB is pending (${result.error || 'Check wallet balance/KYC in Shiprocket'}).`;
+        return NextResponse.json({ success: true, message: msg, order: updated });
       } else {
         await prisma.order.update({
           where: { id: order.id },

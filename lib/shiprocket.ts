@@ -322,6 +322,7 @@ export async function createShiprocketOrder(
         // Attempt AWB generation
         let awbCode: string | undefined;
         let courierName = 'Blue Dart Express';
+        let awbErrorNotice: string | undefined;
         try {
           const awbRes = await fetch('https://apiv2.shiprocket.in/v1/external/courier/assign/awb', {
             method: 'POST',
@@ -331,13 +332,22 @@ export async function createShiprocketOrder(
             },
             body: JSON.stringify({ shipment_id: shipmentId }),
           });
-          if (awbRes.ok) {
-            const awbData = await awbRes.json();
-            awbCode = awbData?.response?.data?.awb_code;
-            courierName = awbData?.response?.data?.courier_name || courierName;
+          const awbData = await awbRes.json();
+          console.log('[Shiprocket AWB Result]:', JSON.stringify(awbData));
+
+          if (awbRes.ok && awbData?.response?.data?.awb_code) {
+            awbCode = awbData.response.data.awb_code;
+            courierName = awbData.response.data.courier_name || courierName;
+          } else {
+            awbErrorNotice =
+              awbData?.response?.data?.awb_assign_error ||
+              awbData?.message ||
+              'AWB pending: Wallet recharge or courier allocation needed in Shiprocket.';
+            console.warn('[Shiprocket AWB Pending Reason]:', awbErrorNotice);
           }
-        } catch {
-          // AWB assignment can be completed subsequently
+        } catch (awbErr) {
+          console.warn('[Shiprocket AWB Assignment Exception]:', awbErr);
+          awbErrorNotice = 'AWB pending: Courier assignment timeout or pending.';
         }
 
         return {
@@ -346,6 +356,7 @@ export async function createShiprocketOrder(
           shipmentId,
           awbCode,
           courierName,
+          error: awbErrorNotice,
           trackingUrl: awbCode
             ? `https://shiprocket.co/tracking/${awbCode}`
             : `https://shiprocket.co/tracking/${shiprocketOrderId}`,

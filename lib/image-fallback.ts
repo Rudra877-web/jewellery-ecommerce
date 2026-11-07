@@ -5,10 +5,13 @@ import React from 'react';
  */
 export const CATEGORY_FALLBACK_IMAGES: Record<string, string> = {
   rings: '/products/gold-floral-ring.jpg',
-  necklaces: '/products/gold-temple-haaram.jpg',
+  necklaces: '/products/padmavati-temple-haaram.jpg',
   earrings: '/products/meenakari-chandbali.jpg',
   'bangles-bracelets': '/products/antique-gold-kadas.jpg',
-  solitaires: '/products/solitaire-diamond-ring.jpg',
+  bangles: '/products/gold-bangles-set.jpg',
+  bracelets: '/products/diamond-tennis-bracelet.jpg',
+  solitaires: '/products/cushion-solitaire-ring.jpg',
+  mangalsutra: '/products/traditional-mangalsutra.jpg',
 };
 
 export const FALLBACK_JEWELLERY_IMAGE = '/products/gold-temple-haaram.jpg';

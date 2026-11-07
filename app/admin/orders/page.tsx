@@ -209,8 +209,16 @@ export default function AdminOrdersPage() {
                           <Truck className="w-3 h-3 text-emerald-600" />
                           AWB: {ord.awbCode}
                         </span>
+                      ) : ord.shiprocketOrderId ? (
+                        <span
+                          className="inline-flex items-center gap-1 bg-amber-50 text-amber-900 text-[10px] font-bold px-2.5 py-1 rounded-full border border-amber-200"
+                          title={ord.shiprocketError || 'Shiprocket order registered. AWB pending courier allocation or wallet recharge.'}
+                        >
+                          <Truck className="w-3 h-3 text-amber-600" />
+                          SR #{ord.shiprocketOrderId} (AWB Pending)
+                        </span>
                       ) : (
-                        <span className="inline-flex items-center gap-1 bg-amber-50 text-amber-800 text-[10px] font-bold px-2.5 py-1 rounded-full border border-amber-200">
+                        <span className="inline-flex items-center gap-1 bg-stone-100 text-stone-700 text-[10px] font-bold px-2.5 py-1 rounded-full border border-stone-200">
                           Shiprocket Pending
                         </span>
                       )}

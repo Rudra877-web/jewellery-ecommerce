@@ -15,8 +15,8 @@ export async function POST(req: NextRequest) {
   } catch (err: unknown) {
     console.error('Trigger sync error:', err);
     return NextResponse.json(
-      { error: err instanceof Error ? err.message : 'Sync execution failed' },
-      { status: 500 }
+      { success: false, error: err instanceof Error ? err.message : 'Sync execution failed' },
+      { status: 400 }
     );
   }
 }

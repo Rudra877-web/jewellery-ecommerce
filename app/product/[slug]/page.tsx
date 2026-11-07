@@ -7,46 +7,78 @@ import prisma from '@/lib/prisma';
 import { CategoryData, ProductData } from '@/types/jewellery';
 import type { Metadata } from 'next';
 
+export const dynamic = 'force-dynamic';
+
 interface ProductPageProps {
   params: Promise<{ slug: string }>;
 }
 
 export async function generateMetadata({ params }: ProductPageProps): Promise<Metadata> {
   const { slug } = await params;
-  const product = await prisma.product.findUnique({
-    where: { slug },
-    include: { category: true },
-  });
+  try {
+    const product = await prisma.product.findUnique({
+      where: { slug },
+      include: { category: true },
+    });
 
-  if (!product) {
-    return { title: 'Product Not Found | Jewellery Mate' };
-  }
+    if (!product) {
+      return { title: 'Product Not Found | Jewellery Mate' };
+    }
 
-  const images = product.images.split('|').map((s) => s.trim()).filter(Boolean);
+    const images = product.images.split('|').map((s) => s.trim()).filter(Boolean);
 
-  return {
-    title: `${product.name} | Jewellery Mate`,
-    description: product.description,
-    openGraph: {
-      title: `${product.name} | Handcrafted Indian Jewellery`,
+    return {
+      title: `${product.name} | Jewellery Mate`,
       description: product.description,
-      images: images.length > 0 ? [{ url: images[0] }] : undefined,
-    },
-  };
+      openGraph: {
+        title: `${product.name} | Handcrafted Indian Jewellery`,
+        description: product.description,
+        images: images.length > 0 ? [{ url: images[0] }] : undefined,
+      },
+    };
+  } catch {
+    return { title: 'Fine Jewellery | Jewellery Mate' };
+  }
 }
 
 export default async function ProductPage({ params }: ProductPageProps) {
   const { slug } = await params;
 
-  // 1. Fetch Product
-  const rawProduct = await prisma.product.findUnique({
-    where: { slug },
-    include: {
-      category: {
-        select: { id: true, name: true, slug: true },
+  let rawProduct = null;
+  let rawRelated: any[] = [];
+  let allCategoriesRaw: any[] = [];
+
+  try {
+    // 1. Fetch Product
+    rawProduct = await prisma.product.findUnique({
+      where: { slug },
+      include: {
+        category: {
+          select: { id: true, name: true, slug: true },
+        },
       },
-    },
-  });
+    });
+
+    if (rawProduct && rawProduct.status !== 'INACTIVE') {
+      // 2. Fetch Related Products
+      rawRelated = await prisma.product.findMany({
+        where: {
+          categoryId: rawProduct.categoryId,
+          id: { not: rawProduct.id },
+          status: 'ACTIVE',
+        },
+        take: 4,
+        orderBy: { unitsSold: 'desc' },
+      });
+
+      // 3. Fetch all categories for navigation
+      allCategoriesRaw = await prisma.category.findMany({
+        orderBy: { sortOrder: 'asc' },
+      });
+    }
+  } catch (err) {
+    console.warn('[ProductPage] Database query skipped or failed:', err);
+  }
 
   if (!rawProduct || rawProduct.status === 'INACTIVE') {
     notFound();
@@ -67,7 +99,7 @@ export default async function ProductPage({ params }: ProductPageProps) {
     occasion: rawProduct.occasion,
     gender: rawProduct.gender,
     weightGrams: rawProduct.weightGrams,
-    images: rawProduct.images.split('|').map((s) => s.trim()).filter(Boolean),
+    images: rawProduct.images.split('|').map((s: string) => s.trim()).filter(Boolean),
     isBestseller: rawProduct.isBestseller,
     unitsSold: rawProduct.unitsSold,
     status: rawProduct.status as 'ACTIVE' | 'INACTIVE' | 'DRAFT',
@@ -76,17 +108,6 @@ export default async function ProductPage({ params }: ProductPageProps) {
     subcategory: rawProduct.subcategory,
     createdAt: rawProduct.createdAt.toISOString(),
   };
-
-  // 2. Fetch Related Products
-  const rawRelated = await prisma.product.findMany({
-    where: {
-      categoryId: rawProduct.categoryId,
-      id: { not: rawProduct.id },
-      status: 'ACTIVE',
-    },
-    take: 4,
-    orderBy: { unitsSold: 'desc' },
-  });
 
   const relatedProducts: ProductData[] = rawRelated.map((p) => ({
     id: p.id,
@@ -103,18 +124,13 @@ export default async function ProductPage({ params }: ProductPageProps) {
     occasion: p.occasion,
     gender: p.gender,
     weightGrams: p.weightGrams,
-    images: p.images.split('|').map((s) => s.trim()).filter(Boolean),
+    images: p.images.split('|').map((s: string) => s.trim()).filter(Boolean),
     isBestseller: p.isBestseller,
     unitsSold: p.unitsSold,
     status: p.status as 'ACTIVE' | 'INACTIVE' | 'DRAFT',
     categoryId: p.categoryId,
     subcategory: p.subcategory,
   }));
-
-  // 3. Fetch all categories for navigation
-  const allCategoriesRaw = await prisma.category.findMany({
-    orderBy: { sortOrder: 'asc' },
-  });
 
   const allCategories: CategoryData[] = allCategoriesRaw.map((c) => ({
     id: c.id,

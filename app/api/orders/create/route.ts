@@ -194,6 +194,7 @@ export async function POST(req: NextRequest) {
             courierName: shiprocketResult.courierName,
             trackingUrl: shiprocketResult.trackingUrl,
             shiprocketStatus: 'SHIPMENT_CREATED',
+            shiprocketError: shiprocketResult.error || null,
           },
         });
       }

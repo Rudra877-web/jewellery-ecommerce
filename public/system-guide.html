@@ -1,0 +1,538 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Jewellery Mate — System Architecture & Operational Guide</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+    :root {
+      --gold-primary: #9A7B1C;
+      --gold-light: #D4AF37;
+      --gold-bg: #FDFBF7;
+      --stone-900: #1C1917;
+      --stone-800: #292524;
+      --stone-700: #44403C;
+      --stone-600: #57534E;
+      --stone-500: #78716C;
+      --stone-200: #E7E5E4;
+      --stone-100: #F5F5F4;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      color: var(--stone-800);
+      background-color: #FFFFFF;
+      line-height: 1.6;
+      font-size: 13px;
+      padding: 40px;
+    }
+
+    .container {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    /* Cover Header */
+    .cover {
+      border-bottom: 2px solid var(--gold-light);
+      padding-bottom: 30px;
+      margin-bottom: 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+    }
+
+    .cover-title h1 {
+      font-family: 'Cinzel', serif;
+      font-size: 32px;
+      letter-spacing: 0.08em;
+      color: var(--stone-900);
+      text-transform: uppercase;
+      font-weight: 700;
+      margin-bottom: 6px;
+    }
+
+    .cover-title .tagline {
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.25em;
+      text-transform: uppercase;
+      color: var(--gold-primary);
+    }
+
+    .cover-meta {
+      text-align: right;
+      font-size: 11px;
+      color: var(--stone-500);
+      line-height: 1.4;
+    }
+
+    /* Typography */
+    h2 {
+      font-family: 'Cinzel', serif;
+      font-size: 18px;
+      color: var(--stone-900);
+      border-bottom: 1px solid var(--stone-200);
+      padding-bottom: 8px;
+      margin-top: 35px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      break-after: avoid;
+    }
+
+    h3 {
+      font-size: 14px;
+      font-weight: 600;
+      color: var(--stone-900);
+      margin-top: 20px;
+      margin-bottom: 8px;
+      break-after: avoid;
+    }
+
+    p {
+      margin-bottom: 12px;
+      color: var(--stone-700);
+    }
+
+    /* Cards & Grids */
+    .feature-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+      margin: 20px 0;
+    }
+
+    .feature-card {
+      background: var(--gold-bg);
+      border: 1px solid #EFE8DA;
+      border-left: 4px solid var(--gold-light);
+      border-radius: 8px;
+      padding: 16px;
+      break-inside: avoid;
+    }
+
+    .feature-card h4 {
+      font-family: 'Cinzel', serif;
+      font-size: 13px;
+      color: var(--stone-900);
+      margin-bottom: 6px;
+      font-weight: 600;
+    }
+
+    .feature-card p {
+      font-size: 11.5px;
+      color: var(--stone-600);
+      margin-bottom: 0;
+      line-height: 1.5;
+    }
+
+    /* Tables */
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 16px 0 24px 0;
+      font-size: 11.5px;
+      break-inside: avoid;
+    }
+
+    th {
+      background-color: var(--stone-900);
+      color: #FFFFFF;
+      font-weight: 600;
+      text-align: left;
+      padding: 8px 12px;
+      font-size: 11px;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    td {
+      padding: 8px 12px;
+      border-bottom: 1px solid var(--stone-200);
+      color: var(--stone-700);
+    }
+
+    tr:nth-child(even) td {
+      background-color: #FAFAF9;
+    }
+
+    /* Code blocks */
+    pre, code {
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      font-size: 11px;
+    }
+
+    code {
+      background-color: #F3F4F6;
+      padding: 2px 5px;
+      border-radius: 4px;
+      color: #991B1B;
+    }
+
+    pre {
+      background-color: var(--stone-900);
+      color: #F5F5F4;
+      padding: 14px;
+      border-radius: 6px;
+      overflow-x: auto;
+      margin: 14px 0;
+      line-height: 1.45;
+      break-inside: avoid;
+    }
+
+    /* Callout Alert */
+    .callout {
+      background-color: #EFF6FF;
+      border-left: 4px solid #3B82F6;
+      padding: 12px 16px;
+      border-radius: 6px;
+      margin: 16px 0;
+      font-size: 11.5px;
+      color: #1E40AF;
+      break-inside: avoid;
+    }
+
+    .callout.gold {
+      background-color: #FEF9EE;
+      border-left-color: var(--gold-light);
+      color: #78350F;
+    }
+
+    /* Diagram visual block */
+    .diagram-box {
+      background: #FAFAFA;
+      border: 1px solid var(--stone-200);
+      border-radius: 8px;
+      padding: 20px;
+      margin: 20px 0;
+      font-family: monospace;
+      font-size: 11px;
+      line-height: 1.5;
+      color: #333;
+      break-inside: avoid;
+    }
+
+    /* Page break for printing */
+    .page-break {
+      page-break-after: always;
+      break-after: page;
+    }
+
+    @media print {
+      body {
+        padding: 0;
+        font-size: 11.5px;
+      }
+      .container {
+        max-width: 100%;
+      }
+      .page-break {
+        page-break-after: always;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+
+    <!-- Header / Title -->
+    <div class="cover">
+      <div class="cover-title">
+        <div class="tagline">Enterprise E-Commerce Documentation</div>
+        <h1>Jewellery Mate</h1>
+        <p style="font-size: 12px; color: var(--stone-600); margin: 0;">Full-Stack Architecture & Operations Manual</p>
+      </div>
+      <div class="cover-meta">
+        <strong>Version:</strong> 2.0 (Production)<br>
+        <strong>Stack:</strong> Next.js 16 • Turbopack • Prisma 6<br>
+        <strong>Integrations:</strong> Shiprocket • Meta WhatsApp v21.0
+      </div>
+    </div>
+
+    <!-- 1. Executive Summary -->
+    <h2>1. System Overview & The 5 Core Workflows</h2>
+    <p>
+      <strong>Jewellery Mate</strong> is a custom Next.js e-commerce application tailored specifically for royal Indian fine jewellery. It combines spreadsheet-based inventory synchronization with high-conversion storefront UX, multi-item logistics, and instant messaging notifications.
+    </p>
+
+    <div class="feature-grid">
+      <div class="feature-card">
+        <h4>1. Home Showcase Experience</h4>
+        <p>Full-width promotional hero slider with animated luxury CTAs, dynamic category count showcases, and live bestseller ranking engine.</p>
+      </div>
+      <div class="feature-card">
+        <h4>2. Attribute Filtering Engine</h4>
+        <p>Faceted real-time filter navigation: Metal, Purity, Gemstones, Occasion, Gender, Price & Weight range sliders with URL synchronization.</p>
+      </div>
+      <div class="feature-card">
+        <h4>3. Google Sheets Auto-Sync</h4>
+        <p>Zero-friction catalog deployment from Google Sheets / Drive or direct CSV upload with smart header alias recognition and automated category creation.</p>
+      </div>
+      <div class="feature-card">
+        <h4>4. Multi-Product Cart & Shiprocket</h4>
+        <p>Multi-item cart drawer with instant subtotal and weight calculation, auto-dispatching orders to Shiprocket for real-time AWB and courier tracking.</p>
+      </div>
+    </div>
+
+    <div class="feature-card" style="margin-top: 0; border-left-color: #10B981; background: #F0FDF4; border-color: #DCFCE7;">
+      <h4 style="color: #065F46;">5. Meta WhatsApp Cloud API Integration</h4>
+      <p style="color: #166534;">Instant WhatsApp order confirmation dispatched to store owner (+91...) with itemized bill, customer shipping address, and 1-click direct customer messaging fallback.</p>
+    </div>
+
+    <!-- Diagram -->
+    <h3 style="margin-top: 24px;">Complete Data Flow Architecture</h3>
+    <div class="diagram-box">
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ [Merchant] Google Sheets / Drive CSV  ➔  Normalized Export (/export?format=csv)        │
+└───────────────────────────────────────────────┬────────────────────────────────────────┘
+                                                ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ [Next.js Server] lib/catalog-sync.ts: Smart Header Aliasing (SKU, Name, Price, etc.)  │
+│ ➔ Database Upsert (Prisma ORM)  ➔  Auto-creates Categories (/category/[slug])          │
+└───────────────────────────────────────────────┬────────────────────────────────────────┘
+                                                ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ [Customer] Storefront (/): HeroSlider  ➔  CategoryView (Filters)  ➔  Multi-Item Cart   │
+│ ➔ Checkout (/checkout): Validates Address, Pincode & Inventory                         │
+└───────────────────────────────────────────────┬────────────────────────────────────────┘
+                                                ▼
+┌────────────────────────────────────────────────────────────────────────────────────────┐
+│ [Fulfillment] /api/orders/create:                                                      │
+│ 1. Database Order Created & Stock Deducted                                             │
+│ 2. Shiprocket API: Adhoc Order Registered  ➔  Live AWB & Courier Tracking Assigned    │
+│ 3. Meta WhatsApp Cloud API: Dispatches Instant Notification to Owner Phone             │
+│ 4. Admin Orders Panel (/admin/orders): 1-Click WhatsApp & Shiprocket AWB Retry         │
+└────────────────────────────────────────────────────────────────────────────────────────┘
+    </div>
+
+    <div class="page-break"></div>
+
+    <!-- Feature 1 & 2 -->
+    <h2>2. Storefront Experience & Attribute Filter Engine</h2>
+    
+    <h3>Feature 1: Home Page Gallery & Bestsellers</h3>
+    <p>
+      The home page (<code>app/page.tsx</code>) uses server-side dynamic rendering to guarantee fresh inventory data on every visit:
+    </p>
+    <ul>
+      <li><strong>Hero Slider (<code>components/home/HeroSlider.tsx</code>):</strong> Full-bleed imagery, gold foil serif typography, slide indicators, and direct deep-links to categories. Managed via the <code>HeroSlide</code> database table.</li>
+      <li><strong>Categories Grid (<code>components/home/CategoriesSection.tsx</code>):</strong> Renders circular and card category portals displaying live product count pills.</li>
+      <li><strong>Best Selling Grid (<code>components/home/BestSellingSection.tsx</code>):</strong> Fetches top 8 products sorted by <code>unitsSold</code> (descending) and <code>isBestseller</code> flag. Includes quick view drawer and 1-click Add-to-Cart.</li>
+    </ul>
+
+    <h3>Feature 2: Category Attribute Filtering Engine</h3>
+    <p>
+      Located at <code>components/category/CategoryView.tsx</code>, the category engine evaluates products in real time across 7 distinct attribute facets:
+    </p>
+
+    <table>
+      <thead>
+        <tr>
+          <th>Attribute</th>
+          <th>Supported Values</th>
+          <th>Behavior</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Metal</strong></td>
+          <td>Gold, Silver, Platinum, Diamond</td>
+          <td>Multi-select filter matching product metal type</td>
+        </tr>
+        <tr>
+          <td><strong>Purity</strong></td>
+          <td>18K, 22K, 24K, 925</td>
+          <td>Filters by gold or silver karat hallmark</td>
+        </tr>
+        <tr>
+          <td><strong>Gemstones</strong></td>
+          <td>Diamond, Kundan, Emerald, Ruby, None</td>
+          <td>Filters stones embedded in the jewellery</td>
+        </tr>
+        <tr>
+          <td><strong>Occasion</strong></td>
+          <td>Bridal, Festive, Daily Wear, Party</td>
+          <td>Curated lifestyle and styling filter</td>
+        </tr>
+        <tr>
+          <td><strong>Gender</strong></td>
+          <td>Women, Men, Unisex</td>
+          <td>Demographic classification</td>
+        </tr>
+        <tr>
+          <td><strong>Price Slider</strong></td>
+          <td>Dynamic ₹ Min – ₹ Max</td>
+          <td>Real-time range slider bounded to category price extrema</td>
+        </tr>
+        <tr>
+          <td><strong>Weight Slider</strong></td>
+          <td>Dynamic 0g – 100g+</td>
+          <td>Filters by gross weight in grams</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="callout gold">
+      <strong>URL Query Synchronization:</strong> When customers toggle filters, the browser URL automatically updates (e.g. <code>/category/rings?metal=Gold&purity=22K&inStock=true</code>) without reloading the page. This ensures customers can bookmark or share exact filtered results.
+    </div>
+
+    <!-- Feature 3 -->
+    <h2>3. Catalog Synchronization Engine (Google Sheets & CSV)</h2>
+    <p>
+      The catalog sync engine (<code>lib/catalog-sync.ts</code>) connects directly to Google Sheets or Google Drive CSV exports.
+    </p>
+
+    <h3>Smart Column Alias Recognition</h3>
+    <p>
+      To prevent errors from manual typing, the parser accommodates all common column variations:
+    </p>
+    <table>
+      <thead>
+        <tr>
+          <th>Internal Field</th>
+          <th>Accepted Spreadsheet Column Names</th>
+          <th>Default Fallback</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><code>sku</code></td>
+          <td>sku, item code, product id, code, item no, product code</td>
+          <td>Required</td>
+        </tr>
+        <tr>
+          <td><code>name</code></td>
+          <td>name, product name, title, item name, design name</td>
+          <td>Required</td>
+        </tr>
+        <tr>
+          <td><code>category</code></td>
+          <td>category, category name, type, collection, department</td>
+          <td>Required</td>
+        </tr>
+        <tr>
+          <td><code>price</code></td>
+          <td>price, selling price, sale price, rate, amount, offer price</td>
+          <td>Required (> 0)</td>
+        </tr>
+        <tr>
+          <td><code>mrp</code></td>
+          <td>mrp, regular price, original price, list price, market price</td>
+          <td>Defaults to <code>price</code></td>
+        </tr>
+        <tr>
+          <td><code>stock</code></td>
+          <td>stock, quantity, qty, inventory, available stock</td>
+          <td>Defaults to <code>10</code></td>
+        </tr>
+        <tr>
+          <td><code>image_urls</code></td>
+          <td>image_urls, image, images, image url, photo, picture</td>
+          <td>Local fallback image</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="page-break"></div>
+
+    <!-- Feature 4 & 5 -->
+    <h2>4. Multi-Product Cart & Shiprocket Logistics Engine</h2>
+    <p>
+      The checkout flow (<code>app/checkout/page.tsx</code>) handles multi-product carts with automatic logistics provisioning.
+    </p>
+
+    <h3>Shiprocket Fulfillment Flow</h3>
+    <ol style="margin-left: 20px; line-height: 1.8; color: var(--stone-700);">
+      <li><strong>Adhoc Order Creation:</strong> System submits an order bundle to <code>/v1/external/orders/create/adhoc</code> with total weight, dimensions, and customer address.</li>
+      <li><strong>Shipment ID:</strong> Shiprocket returns a unique <code>order_id</code> and <code>shipment_id</code>.</li>
+      <li><strong>AWB Generation:</strong> System immediately triggers <code>/v1/external/courier/assign/awb</code>.</li>
+      <li><strong>Live Tracking:</strong> When allocated, the AWB code (e.g. <code>AWB12345678</code>) is attached to the order with a direct tracking URL (<code>https://shiprocket.co/tracking/...</code>).</li>
+    </ol>
+
+    <div class="callout">
+      <strong>Why AWB can show "Pending":</strong> Shiprocket mandates: (1) Prepaid wallet balance (minimum ₹100), and (2) Approved domestic KYC. If wallet balance is 0, Shiprocket registers the order but pauses AWB. In your Admin Orders panel (<code>/admin/orders</code>), the owner sees <code>SR #[ID] (AWB Pending)</code> and can click <strong>"Retry Shiprocket Order"</strong> as soon as the wallet is recharged.
+    </div>
+
+    <!-- Feature 5 -->
+    <h2>5. Meta WhatsApp Cloud API Notification Engine</h2>
+    <p>
+      The WhatsApp notification system (<code>lib/whatsapp.ts</code>) dispatches automated alerts via official Meta Graph API v21.0.
+    </p>
+
+    <h3>Payload Dispatched to Store Owner</h3>
+    <pre>
+✨ *NEW LUXURY ORDER RECEIVED* ✨
+*Order Number:* #JM-2026-83491
+*Payment Status:* PAID (₹34,999 via Razorpay)
+
+👤 *Customer Details:*
+• Name: Ananya Sharma
+• Phone: +91 98765 43210
+• Address: Flat 402, Royal Palms, MG Road, Pune, Maharashtra - 411001
+
+📦 *Ordered Items:*
+1. Cushion Cut Solitaire Diamond Ring (Qty: 1) - ₹34,999
+
+🚚 *Logistics Status:*
+• Courier: Blue Dart Express
+• Shiprocket Order ID: 9482019
+• AWB: AWB-JM-83491
+    </pre>
+
+    <div class="feature-card" style="border-left-color: #2563EB;">
+      <h4>1-Click Direct WhatsApp Fallback</h4>
+      <p>
+        In addition to automated Cloud API messages, the Admin Orders table features a direct <code>wa.me</code> shortcut. Store managers can click <strong>"1-Click WhatsApp to Customer"</strong> from any device to send invoices, dispatch confirmations, and delivery updates directly.
+      </p>
+    </div>
+
+    <!-- Admin Guide -->
+    <h2>6. Daily Store Administrator Cheat Sheet</h2>
+    <table>
+      <thead>
+        <tr>
+          <th>Daily Action</th>
+          <th>Where to Go</th>
+          <th>How to Execute</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>Add New Products</strong></td>
+          <td>Google Sheets</td>
+          <td>Add rows to your sheet, open <code>/admin/sync</code>, and click <strong>"Sync Now"</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>Check Orders & AWB</strong></td>
+          <td><code>/admin/orders</code></td>
+          <td>Inspect orders. If AWB is pending, recharge Shiprocket wallet and click <strong>"Retry"</strong>.</td>
+        </tr>
+        <tr>
+          <td><strong>Customer Chat</strong></td>
+          <td><code>/admin/orders</code></td>
+          <td>Click <strong>"1-Click WhatsApp"</strong> to open prefilled order message on WhatsApp.</td>
+        </tr>
+        <tr>
+          <td><strong>Direct CSV Upload</strong></td>
+          <td><code>/admin/import</code></td>
+          <td>Drag and drop a <code>.csv</code> file directly without using Google Sheets.</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div style="margin-top: 40px; padding-top: 15px; border-top: 1px solid var(--stone-200); text-align: center; font-size: 11px; color: var(--stone-500);">
+      Jewellery Mate © 2026 • Built with Next.js 16, Prisma & Tailwind CSS • Official Technical Manual
+    </div>
+
+  </div>
+</body>
+</html>
