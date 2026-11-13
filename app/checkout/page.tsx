@@ -313,14 +313,14 @@ export default function CheckoutPage() {
       <Script src="https://checkout.razorpay.com/v1/checkout.js" strategy="lazyOnload" />
       <Header />
 
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-24 sm:pb-10 w-full">
         {/* Checkout Breadcrumb */}
         <div className="mb-6 flex items-center justify-between pb-4 border-b border-stone-200">
           <div>
-            <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[#9A7B1C]">
+            <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] uppercase text-[#9A7B1C]">
               Secure Checkout
             </span>
-            <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-stone-900">
+            <h1 className="font-serif text-2xl sm:text-4xl font-semibold text-stone-900">
               Shipping & Payment
             </h1>
           </div>

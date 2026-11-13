@@ -1,3 +1,5 @@
+
+
 import puppeteer, { Browser } from 'puppeteer-core';
 import fs from 'fs';
 import path from 'path';
@@ -614,29 +616,27 @@ export async function generateComprehensivePdfWithImages() {
 
     <div class="gallery-grid">
       ${results
-        .map((r) => {
-          const imgB64 = toBase64Image(r.screenshot);
-          return `
+      .map((r) => {
+        const imgB64 = toBase64Image(r.screenshot);
+        return `
         <div class="gallery-card">
           <div class="gallery-header">
             <div>
               <span style="font-family:'JetBrains Mono', monospace; font-size:10px; font-weight:700; color:#0F172A;">${r.testId}</span>
               <span class="gallery-title" style="margin-left:6px;">${r.scenario}</span>
             </div>
-            <span class="badge ${
-              r.status === 'PASS'
-                ? 'badge-pass'
-                : r.status === 'RETESTED PASS'
-                ? 'badge-retested'
-                : 'badge-fail'
-            }">${r.status}</span>
+            <span class="badge ${r.status === 'PASS'
+            ? 'badge-pass'
+            : r.status === 'RETESTED PASS'
+              ? 'badge-retested'
+              : 'badge-fail'
+          }">${r.status}</span>
           </div>
           <div class="gallery-img-wrapper">
-            ${
-              imgB64
-                ? `<img src="${imgB64}" class="gallery-img" alt="${r.testId} Screenshot" />`
-                : '<div style="color:#FFF; padding:60px 20px; font-size:11px;">Screenshot captured in file system</div>'
-            }
+            ${imgB64
+            ? `<img src="${imgB64}" class="gallery-img" alt="${r.testId} Screenshot" />`
+            : '<div style="color:#FFF; padding:60px 20px; font-size:11px;">Screenshot captured in file system</div>'
+          }
           </div>
           <div class="gallery-details">
             <div style="margin-bottom:4px;"><strong>Module:</strong> ${r.module} (${r.durationMs}ms)</div>
@@ -645,8 +645,8 @@ export async function generateComprehensivePdfWithImages() {
           </div>
         </div>
       `;
-        })
-        .join('')}
+      })
+      .join('')}
     </div>
 
     <!-- Section 4: Master Test Case Table -->
@@ -667,8 +667,8 @@ export async function generateComprehensivePdfWithImages() {
         </thead>
         <tbody>
           ${results
-            .map(
-              (r) => `
+      .map(
+        (r) => `
             <tr>
               <td><strong style="font-family:'JetBrains Mono', monospace; font-size:9.5px;">${r.testId}</strong></td>
               <td><span style="font-weight:600; color:#475569;">${r.module}</span></td>
@@ -677,21 +677,19 @@ export async function generateComprehensivePdfWithImages() {
               <td style="font-size:9.5px;">${r.expectedResult}</td>
               <td style="font-size:9.5px;">${r.actualResult}</td>
               <td style="text-align: center;">
-                <span class="badge ${
-                  r.status === 'PASS'
-                    ? 'badge-pass'
-                    : r.status === 'RETESTED PASS'
-                    ? 'badge-retested'
-                    : 'badge-fail'
-                }">${r.status}</span>
+                <span class="badge ${r.status === 'PASS'
+            ? 'badge-pass'
+            : r.status === 'RETESTED PASS'
+              ? 'badge-retested'
+              : 'badge-fail'
+          }">${r.status}</span>
               </td>
-              <td style="text-align: center; font-family:'JetBrains Mono', monospace; font-size:9.5px; color:${
-                r.bugId !== 'None' ? '#DC2626' : '#94A3B8'
-              }; font-weight:700;">${r.bugId}</td>
+              <td style="text-align: center; font-family:'JetBrains Mono', monospace; font-size:9.5px; color:${r.bugId !== 'None' ? '#DC2626' : '#94A3B8'
+          }; font-weight:700;">${r.bugId}</td>
             </tr>
           `
-            )
-            .join('')}
+      )
+      .join('')}
         </tbody>
       </table>
     </div>
@@ -733,7 +731,7 @@ export async function generateComprehensivePdfWithImages() {
   console.log('Generating complete PDF report with embedded screenshots via Puppeteer...');
   const tempProfile = path.join(process.cwd(), '.chrome-pdf-temp-gallery');
   if (fs.existsSync(tempProfile)) {
-    try { fs.rmSync(tempProfile, { recursive: true, force: true }); } catch {}
+    try { fs.rmSync(tempProfile, { recursive: true, force: true }); } catch { }
   }
 
   let browser: Browser | undefined;
@@ -773,10 +771,10 @@ export async function generateComprehensivePdfWithImages() {
     }
   } finally {
     if (browser) {
-      await browser.close().catch(() => {});
+      await browser.close().catch(() => { });
     }
     if (fs.existsSync(tempProfile)) {
-      try { fs.rmSync(tempProfile, { recursive: true, force: true }); } catch {}
+      try { fs.rmSync(tempProfile, { recursive: true, force: true }); } catch { }
     }
   }
 }

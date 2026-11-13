@@ -130,9 +130,9 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-28 sm:pb-10">
       {/* Breadcrumb Navigation */}
-      <nav className="text-xs text-stone-500 mb-8 flex items-center space-x-2">
+      <nav className="text-xs text-stone-500 mb-6 sm:mb-8 flex items-center space-x-2 overflow-x-auto no-scrollbar whitespace-nowrap">
         <a href="/" className="hover:text-stone-900 transition-colors">Home</a>
         <span>/</span>
         {product.category && (
@@ -147,7 +147,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
       </nav>
 
       {/* Main Product Showcase (2-column layout) */}
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-16 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-16 items-start">
         {/* Left Column: Image Gallery with Interactive Zoom */}
         <div className="space-y-4">
           {/* Main Large Image Container */}
@@ -226,7 +226,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
               </span>
             </div>
 
-            <h1 className="font-serif text-3xl sm:text-4xl font-semibold text-stone-900 leading-tight">
+            <h1 className="font-serif text-2xl sm:text-4xl font-semibold text-stone-900 leading-tight">
               {product.name}
             </h1>
 
@@ -413,21 +413,21 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
 
       {/* Related Creations Section */}
       {relatedProducts.length > 0 && (
-        <div className="mt-24 pt-12 border-t border-stone-200">
-          <div className="text-center max-w-xl mx-auto mb-10 space-y-2">
-            <span className="text-[11px] font-semibold tracking-[0.25em] uppercase text-[#9A7B1C]">
+        <div className="mt-16 sm:mt-24 pt-8 sm:pt-12 border-t border-stone-200">
+          <div className="text-center max-w-xl mx-auto mb-8 sm:mb-10 space-y-1.5 sm:space-y-2">
+            <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] uppercase text-[#9A7B1C]">
               Harmonious Complements
             </span>
-            <h2 className="font-serif text-3xl font-semibold text-stone-900">
+            <h2 className="font-serif text-2xl sm:text-3xl font-semibold text-stone-900">
               Related Fine Creations
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
             {relatedProducts.slice(0, 4).map((rel) => (
               <div key={rel.id} className="transform hover:-translate-y-1 transition-transform">
                 <a href={`/product/${rel.slug}`} className="block group">
-                  <div className="w-full aspect-square rounded-xl overflow-hidden bg-stone-100 border border-stone-200 mb-3">
+                  <div className="w-full aspect-square rounded-xl overflow-hidden bg-stone-100 border border-stone-200 mb-2 sm:mb-3">
                     <img
                       src={
                         Array.isArray(rel.images)
@@ -441,10 +441,10 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
                       onError={handleImageError}
                     />
                   </div>
-                  <h4 className="font-serif text-base font-medium text-stone-900 group-hover:text-[#9A7B1C] transition-colors truncate">
+                  <h4 className="font-serif text-xs sm:text-base font-medium text-stone-900 group-hover:text-[#9A7B1C] transition-colors truncate">
                     {rel.name}
                   </h4>
-                  <div className="text-sm font-semibold text-stone-900 mt-1">
+                  <div className="text-xs sm:text-sm font-semibold text-stone-900 mt-0.5 sm:mt-1">
                     ₹{rel.price.toLocaleString('en-IN')}
                   </div>
                 </a>
@@ -453,6 +453,45 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
           </div>
         </div>
       )}
+
+      {/* Mobile Fixed Sticky Purchase Bar */}
+      <div className="sm:hidden fixed bottom-16 left-0 right-0 z-30 bg-white/95 backdrop-blur-md border-t border-stone-200/90 px-4 py-2.5 flex items-center justify-between gap-3 shadow-[0_-4px_20px_rgba(0,0,0,0.08)]">
+        <div className="min-w-0">
+          <span className="text-[10px] uppercase tracking-wider text-stone-500 block">Total Price</span>
+          <div className="flex items-baseline gap-1.5">
+            <span className="text-base font-bold text-stone-900 font-sans">
+              ₹{product.price.toLocaleString('en-IN')}
+            </span>
+            {product.mrp > product.price && (
+              <span className="text-[10px] text-stone-400 line-through">
+                ₹{product.mrp.toLocaleString('en-IN')}
+              </span>
+            )}
+          </div>
+        </div>
+
+        <div className="flex items-center gap-2">
+          <button
+            type="button"
+            onClick={handleAddToCart}
+            disabled={product.stock <= 0}
+            className="px-4 py-2.5 bg-stone-900 text-white rounded-xl text-xs font-semibold uppercase tracking-wider shadow-sm flex items-center gap-1.5 active:scale-95 disabled:opacity-40"
+          >
+            <ShoppingBag className="w-3.5 h-3.5 text-[#E6CA65]" />
+            <span>Bag</span>
+          </button>
+
+          <button
+            type="button"
+            onClick={handleBuyNow}
+            disabled={product.stock <= 0}
+            className="px-5 py-2.5 bg-[#D4AF37] hover:bg-[#B38F24] text-stone-950 rounded-xl text-xs font-bold uppercase tracking-wider shadow-md flex items-center gap-1.5 active:scale-95 disabled:opacity-40"
+          >
+            <Zap className="w-3.5 h-3.5" />
+            <span>Buy Now</span>
+          </button>
+        </div>
+      </div>
     </div>
   );
 }

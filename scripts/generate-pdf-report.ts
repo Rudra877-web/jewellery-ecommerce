@@ -398,7 +398,7 @@ async function generateReport() {
     args: ['--no-sandbox', '--disable-setuid-sandbox'],
   });
   const page = await browser.newPage();
-  await page.setContent(html, { waitUntil: 'networkidle0' });
+  await page.setContent(html, { waitUntil: 'load' });
   const pdfPath = path.join(process.cwd(), 'public', 'QA_Testing_Report_Jewellery_Mate.pdf');
   await page.pdf({
     path: pdfPath,

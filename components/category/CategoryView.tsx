@@ -344,29 +344,29 @@ export default function CategoryView({
   );
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10">
+    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10">
       {/* Category Banner Title */}
-      <div className="mb-8 pb-6 border-b border-stone-200">
-        <h1 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-stone-900">
+      <div className="mb-6 sm:mb-8 pb-4 sm:pb-6 border-b border-stone-200">
+        <h1 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-semibold text-stone-900">
           {category.name}
         </h1>
         {category.description && (
-          <p className="mt-2 text-xs sm:text-sm text-stone-600 font-light max-w-3xl leading-relaxed">
+          <p className="mt-1.5 sm:mt-2 text-xs sm:text-sm text-stone-600 font-light max-w-3xl leading-relaxed">
             {category.description}
           </p>
         )}
       </div>
 
       {/* Controls Bar: Mobile Filters Button & Sorting */}
-      <div className="flex flex-wrap items-center justify-between gap-4 pb-6 border-b border-stone-200 mb-8">
+      <div className="flex flex-wrap items-center justify-between gap-3 pb-4 sm:pb-6 border-b border-stone-200 mb-6 sm:mb-8">
         {/* Mobile Filter Toggle */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2 sm:gap-3">
           <button
             type="button"
             onClick={() => setMobileDrawerOpen(true)}
-            className="lg:hidden inline-flex items-center gap-2 px-4 py-2 bg-stone-900 text-white text-xs uppercase tracking-wider font-medium rounded-full shadow-sm"
+            className="lg:hidden inline-flex items-center gap-1.5 px-3 py-1.5 bg-stone-900 hover:bg-[#9A7B1C] text-white text-[11px] uppercase tracking-wider font-semibold rounded-full shadow-sm active:scale-95 transition-colors"
           >
-            <SlidersHorizontal className="w-3.5 h-3.5" />
+            <SlidersHorizontal className="w-3 h-3" />
             <span>Filters {activeFiltersCount > 0 && `(${activeFiltersCount})`}</span>
           </button>
 
@@ -376,15 +376,15 @@ export default function CategoryView({
         </div>
 
         {/* Sorting Dropdown */}
-        <div className="flex items-center gap-2">
-          <label htmlFor="sort-select" className="text-xs text-stone-500 font-medium">
+        <div className="flex items-center gap-1.5 sm:gap-2">
+          <label htmlFor="sort-select" className="text-xs text-stone-500 font-medium hidden sm:inline">
             Sort by:
           </label>
           <select
             id="sort-select"
             value={sortOption}
             onChange={(e) => updateUrlParam('sort', e.target.value)}
-            className="text-xs bg-white border border-stone-300 rounded-lg px-3 py-1.5 focus:outline-none focus:border-[#D4AF37] font-medium text-stone-800"
+            className="text-xs bg-white border border-stone-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:border-[#D4AF37] font-medium text-stone-800"
           >
             <option value="bestseller">Best Selling First</option>
             <option value="price-asc">Price: Low to High</option>
@@ -395,17 +395,17 @@ export default function CategoryView({
       </div>
 
       {/* Main Grid & Desktop Filter Sidebar Layout */}
-      <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
+      <div className="grid grid-cols-1 lg:grid-cols-4 gap-6 lg:gap-8 items-start">
         {/* Desktop Sidebar (Left 1 Col) */}
         <aside className="hidden lg:block lg:col-span-1 bg-white p-6 rounded-2xl border border-stone-200 shadow-sm sticky top-28">
           <FilterContent />
         </aside>
 
-        {/* Product Grid (Right 3 Cols) */}
+        {/* Product Grid (Right 3 Cols): 2-cols on mobile, 3-cols on xl */}
         <main className="lg:col-span-3">
           {filteredProducts.length === 0 ? (
-            <div className="bg-white rounded-2xl p-12 text-center border border-stone-200 space-y-4">
-              <h3 className="font-serif text-2xl font-medium text-stone-800">
+            <div className="bg-white rounded-2xl p-8 sm:p-12 text-center border border-stone-200 space-y-4">
+              <h3 className="font-serif text-xl sm:text-2xl font-medium text-stone-800">
                 No matching creations found
               </h3>
               <p className="text-xs text-stone-500 max-w-md mx-auto">
@@ -419,7 +419,7 @@ export default function CategoryView({
               </button>
             </div>
           ) : (
-            <div className="grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6 sm:gap-8">
+            <div className="grid grid-cols-2 xl:grid-cols-3 gap-3 sm:gap-6 xl:gap-8">
               {filteredProducts.map((p) => (
                 <ProductCard key={p.id} product={p} />
               ))}

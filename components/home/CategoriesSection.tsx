@@ -11,24 +11,50 @@ interface CategoriesSectionProps {
 
 export default function CategoriesSection({ categories }: CategoriesSectionProps) {
   return (
-    <section className="py-20 bg-[#FAF9F6] border-b border-stone-200/60">
+    <section className="py-12 sm:py-20 bg-[#FAF9F6] border-b border-stone-200/60">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="text-center max-w-2xl mx-auto mb-14 space-y-3">
-          <span className="text-[11px] font-semibold tracking-[0.3em] uppercase text-[#9A7B1C]">
+        <div className="text-center max-w-2xl mx-auto mb-8 sm:mb-14 space-y-2 sm:space-y-3">
+          <span className="text-[10px] sm:text-[11px] font-semibold tracking-[0.3em] uppercase text-[#9A7B1C]">
             Exquisite Craftsmanship
           </span>
-          <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-stone-900">
+          <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-semibold text-stone-900">
             Curated Collections
           </h2>
-          <div className="w-16 h-0.5 bg-[#D4AF37] mx-auto rounded-full mt-2" />
+          <div className="w-12 sm:w-16 h-0.5 bg-[#D4AF37] mx-auto rounded-full mt-1.5" />
           <p className="text-xs sm:text-sm text-stone-600 font-light pt-1">
             Explore masterpieces crafted in pure 22K Gold, uncut Polki diamonds, and certified solitaires.
           </p>
         </div>
 
+        {/* Mobile Horizontal Quick-Browse Category Pills (< sm) */}
+        <div className="flex sm:hidden overflow-x-auto gap-3 pb-4 mb-6 no-scrollbar -mx-4 px-4 snap-x snap-mandatory">
+          {categories.map((cat) => (
+            <Link
+              key={`pill-${cat.id}`}
+              href={`/category/${cat.slug}`}
+              className="flex flex-col items-center flex-shrink-0 snap-start group"
+            >
+              <div className="w-16 h-16 rounded-full overflow-hidden p-0.5 bg-gradient-to-tr from-[#D4AF37] to-[#E6CA65] shadow-sm group-active:scale-95 transition-transform">
+                <div className="w-full h-full rounded-full overflow-hidden bg-white">
+                  <img
+                    src={cat.image || CATEGORY_FALLBACK_IMAGES[cat.slug] || FALLBACK_JEWELLERY_IMAGE}
+                    alt={cat.name}
+                    className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-300"
+                    loading="lazy"
+                    onError={(e) => handleImageError(e, CATEGORY_FALLBACK_IMAGES[cat.slug] || FALLBACK_JEWELLERY_IMAGE)}
+                  />
+                </div>
+              </div>
+              <span className="text-[11px] font-medium text-stone-800 mt-1.5 max-w-[70px] text-center truncate group-hover:text-[#9A7B1C]">
+                {cat.name}
+              </span>
+            </Link>
+          ))}
+        </div>
+
         {/* Categories Grid */}
-        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-4 sm:gap-6 lg:gap-8">
+        <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-5 gap-3.5 sm:gap-6 lg:gap-8">
           {categories.map((cat) => (
             <Link
               key={cat.id}
@@ -36,7 +62,7 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
               className="group flex flex-col items-center text-center focus:outline-none"
             >
               {/* Card Image Container */}
-              <div className="relative w-full aspect-[4/5] rounded-2xl overflow-hidden bg-stone-100 border border-stone-200/80 group-hover:border-[#D4AF37] shadow-sm group-hover:shadow-xl transition-all duration-500">
+              <div className="relative w-full aspect-[4/5] rounded-xl sm:rounded-2xl overflow-hidden bg-stone-100 border border-stone-200/80 group-hover:border-[#D4AF37] shadow-sm group-hover:shadow-xl transition-all duration-500">
                 <img
                   src={cat.image || CATEGORY_FALLBACK_IMAGES[cat.slug] || FALLBACK_JEWELLERY_IMAGE}
                   alt={cat.name}
@@ -48,12 +74,12 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
                 <div className="absolute inset-0 bg-gradient-to-t from-stone-950/80 via-stone-950/20 to-transparent group-hover:from-stone-950/90 transition-colors" />
 
                 {/* Floating Content inside Image bottom */}
-                <div className="absolute bottom-4 left-0 right-0 px-3 text-center">
-                  <h3 className="font-serif text-lg sm:text-xl font-semibold text-white tracking-wide group-hover:text-[#E6CA65] transition-colors">
+                <div className="absolute bottom-3 sm:bottom-4 left-0 right-0 px-2 sm:px-3 text-center">
+                  <h3 className="font-serif text-base sm:text-xl font-semibold text-white tracking-wide group-hover:text-[#E6CA65] transition-colors leading-tight">
                     {cat.name}
                   </h3>
                   {cat._count?.products !== undefined && (
-                    <span className="text-[11px] text-stone-300 font-light tracking-wider">
+                    <span className="text-[10px] sm:text-[11px] text-stone-300 font-light tracking-wider block mt-0.5">
                       {cat._count.products} Designs
                     </span>
                   )}
@@ -61,7 +87,7 @@ export default function CategoriesSection({ categories }: CategoriesSectionProps
               </div>
 
               {/* Text label below card for mobile clarity */}
-              <div className="mt-3.5 flex items-center gap-1 text-xs uppercase tracking-widest font-medium text-stone-800 group-hover:text-[#9A7B1C] transition-colors">
+              <div className="mt-2.5 sm:mt-3.5 flex items-center gap-1 text-[11px] sm:text-xs uppercase tracking-widest font-medium text-stone-800 group-hover:text-[#9A7B1C] transition-colors">
                 <span>View {cat.name}</span>
                 <span className="group-hover:translate-x-1 transition-transform">→</span>
               </div>

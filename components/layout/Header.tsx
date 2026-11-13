@@ -91,13 +91,13 @@ export default function Header({ categories = [] }: HeaderProps) {
   return (
     <header className="sticky top-0 z-50 w-full font-sans transition-all duration-300">
       {/* 1. Luxury Top Announcement Bar */}
-      <div className="bg-gradient-to-r from-stone-950 via-[#1C1813] to-stone-950 text-stone-200 text-[11px] py-2 px-4 border-b border-[#D4AF37]/25 shadow-inner">
+      <div className="bg-gradient-to-r from-stone-950 via-[#1C1813] to-stone-950 text-stone-200 text-[10px] sm:text-[11px] py-1.5 sm:py-2 px-3 sm:px-4 border-b border-[#D4AF37]/25 shadow-inner">
         <div className="max-w-7xl mx-auto flex items-center justify-between">
           {/* Left Feature Pill */}
-          <div className="flex items-center gap-2">
-            <span className="flex items-center gap-1.5 text-[#E6CA65] font-medium tracking-wider uppercase text-[10.5px]">
-              <Sparkles className="w-3.5 h-3.5 text-[#D4AF37] animate-pulse" />
-              <span>Complimentary Insured Delivery Across India</span>
+          <div className="flex items-center gap-2 overflow-hidden">
+            <span className="flex items-center gap-1.5 text-[#E6CA65] font-medium tracking-wider uppercase text-[9.5px] sm:text-[10.5px] truncate">
+              <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#D4AF37] animate-pulse flex-shrink-0" />
+              <span className="truncate">Complimentary Insured Delivery Across India</span>
             </span>
             <span className="hidden md:inline text-stone-600">|</span>
             <span className="hidden md:flex items-center gap-1 text-stone-400 text-[10.5px]">
@@ -151,18 +151,18 @@ export default function Header({ categories = [] }: HeaderProps) {
 
             {/* Logo with Royal Jewellery Insignia */}
             <div className="flex-1 lg:flex-none text-center lg:text-left">
-              <Link href="/" className="inline-flex items-center gap-3 group">
+              <Link href="/" className="inline-flex items-center gap-2 sm:gap-3 group">
                 {/* Royal Monogram Icon */}
-                <div className="w-9 h-9 rounded-full bg-gradient-to-br from-stone-900 to-stone-950 border border-[#D4AF37]/60 flex items-center justify-center shadow-md group-hover:border-[#D4AF37] group-hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all">
-                  <Gem className="w-4 h-4 text-[#D4AF37] transition-transform duration-300 group-hover:scale-110" />
+                <div className="w-8 h-8 sm:w-9 sm:h-9 rounded-full bg-gradient-to-br from-stone-900 to-stone-950 border border-[#D4AF37]/60 flex items-center justify-center shadow-md group-hover:border-[#D4AF37] group-hover:shadow-[0_0_15px_rgba(212,175,55,0.3)] transition-all flex-shrink-0">
+                  <Gem className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37] transition-transform duration-300 group-hover:scale-110" />
                 </div>
 
                 {/* Typography */}
                 <div className="flex flex-col text-left">
-                  <span className="font-serif text-2xl sm:text-[26px] font-bold tracking-[0.18em] text-stone-950 group-hover:text-[#9A7B1C] transition-colors uppercase leading-tight">
+                  <span className="font-serif text-lg sm:text-2xl lg:text-[26px] font-bold tracking-[0.14em] sm:tracking-[0.18em] text-stone-950 group-hover:text-[#9A7B1C] transition-colors uppercase leading-tight">
                     Jewellery Mate
                   </span>
-                  <span className="text-[8.5px] tracking-[0.35em] uppercase text-[#9A7B1C] font-semibold">
+                  <span className="text-[7.5px] sm:text-[8.5px] tracking-[0.25em] sm:tracking-[0.35em] uppercase text-[#9A7B1C] font-semibold">
                     Haute Joaillerie • Est. 2026
                   </span>
                 </div>

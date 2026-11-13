@@ -190,7 +190,7 @@ async function runLiveAndLocalQASuite() {
       const pincodeInput = await page.$('input[placeholder*="pincode" i], input[placeholder*="pin" i], input[type="text"]');
       let resultText = 'Input not found';
       if (pincodeInput) {
-        await pincodeInput.click({ clickCount: 3 });
+        await pincodeInput.click({ count: 3 });
         await pincodeInput.type('380001', { delay: 30 });
         await page.evaluate(() => {
           const btn = Array.from(document.querySelectorAll('button')).find((b) =>
@@ -421,7 +421,7 @@ async function runLiveAndLocalQASuite() {
     // TC-015: Admin Login Positive Test (Correct Password)
     {
       const start = Date.now();
-      await page.click('input[type="password"]', { clickCount: 3 });
+      await page.click('input[type="password"]', { count: 3 });
       await page.type('input[type="password"]', 'admin', { delay: 30 });
       await page.click('button[type="submit"]');
       await new Promise((r) => setTimeout(r, 2500));

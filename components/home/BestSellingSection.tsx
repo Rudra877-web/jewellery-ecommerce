@@ -10,16 +10,16 @@ interface BestSellingSectionProps {
 
 export default function BestSellingSection({ products }: BestSellingSectionProps) {
   return (
-    <section className="py-20 bg-white">
+    <section className="py-12 sm:py-20 bg-white">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="flex flex-col md:flex-row md:items-end justify-between mb-12 border-b border-stone-200 pb-6 gap-4">
-          <div className="space-y-2">
-            <div className="inline-flex items-center gap-1.5 text-[11px] font-semibold tracking-[0.25em] uppercase text-[#9A7B1C]">
-              <Flame className="w-4 h-4 text-[#D4AF37]" />
+        <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 sm:mb-12 border-b border-stone-200 pb-5 sm:pb-6 gap-3 sm:gap-4">
+          <div className="space-y-1.5 sm:space-y-2">
+            <div className="inline-flex items-center gap-1.5 text-[10px] sm:text-[11px] font-semibold tracking-[0.25em] uppercase text-[#9A7B1C]">
+              <Flame className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#D4AF37]" />
               <span>Most Adored Creations</span>
             </div>
-            <h2 className="font-serif text-3xl sm:text-4xl lg:text-5xl font-semibold text-stone-900">
+            <h2 className="font-serif text-2xl sm:text-4xl lg:text-5xl font-semibold text-stone-900">
               Best Selling Jewellery
             </h2>
             <p className="text-xs sm:text-sm text-stone-600 font-light">
@@ -29,15 +29,15 @@ export default function BestSellingSection({ products }: BestSellingSectionProps
 
           <Link
             href="/category/all?sort=bestseller"
-            className="inline-flex items-center gap-2 text-xs uppercase tracking-widest font-semibold text-stone-900 hover:text-[#9A7B1C] group transition-colors"
+            className="inline-flex items-center gap-1.5 sm:gap-2 text-[11px] sm:text-xs uppercase tracking-widest font-semibold text-stone-900 hover:text-[#9A7B1C] group transition-colors self-start md:self-auto pt-1"
           >
             <span>View All Masterpieces</span>
-            <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
+            <ArrowRight className="w-3.5 h-3.5 sm:w-4 sm:h-4 group-hover:translate-x-1 transition-transform" />
           </Link>
         </div>
 
-        {/* Products Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 sm:gap-8">
+        {/* Products Grid: 2 columns on mobile, 4 on desktop */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-6 lg:gap-8">
           {products.slice(0, 8).map((product) => (
             <ProductCard key={product.id} product={product} />
           ))}

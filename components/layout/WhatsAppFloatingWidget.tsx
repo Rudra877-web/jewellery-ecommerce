@@ -28,7 +28,7 @@ export default function WhatsAppFloatingWidget() {
   const waUrl = `https://wa.me/${cleanPhone}?text=${message}`;
 
   return (
-    <div className="fixed bottom-6 right-6 z-50 flex items-center gap-3">
+    <div className="fixed bottom-20 right-4 sm:bottom-6 sm:right-6 z-40 flex items-center gap-3">
       <a
         href={waUrl}
         target="_blank"

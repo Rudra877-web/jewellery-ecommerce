@@ -140,7 +140,7 @@ export default function AccountPage() {
   return (
     <div className="flex flex-col min-h-screen bg-[#FAF9F6]">
       <Header />
-      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 w-full">
+      <main className="flex-1 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-10 pb-24 sm:pb-10 w-full">
         {/* Profile Welcome Header */}
         <div className="bg-white rounded-3xl border border-stone-200/80 p-6 sm:p-8 mb-8 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
           <div className="flex items-center gap-4">

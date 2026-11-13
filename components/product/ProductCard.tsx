@@ -54,7 +54,7 @@ export default function ProductCard({ product }: ProductCardProps) {
 
   return (
     <div
-      className="group relative bg-white rounded-2xl overflow-hidden border border-stone-200/80 hover:border-[#D4AF37]/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+      className="group relative bg-white rounded-xl sm:rounded-2xl overflow-hidden border border-stone-200/80 hover:border-[#D4AF37]/80 shadow-sm hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
       onMouseEnter={() => setIsHovered(true)}
       onMouseLeave={() => setIsHovered(false)}
     >
@@ -70,48 +70,48 @@ export default function ProductCard({ product }: ProductCardProps) {
           />
 
           {/* Badges Overlay */}
-          <div className="absolute top-3 left-3 flex flex-col gap-1.5 items-start z-10">
+          <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 items-start z-10">
             {product.isBestseller && (
-              <span className="inline-flex items-center gap-1 bg-[#1A1A1A] text-[#FAF8F5] text-[10px] font-semibold uppercase tracking-wider px-2.5 py-1 rounded-full shadow-sm border border-[#D4AF37]/40">
+              <span className="inline-flex items-center gap-1 bg-[#1A1A1A] text-[#FAF8F5] text-[8.5px] sm:text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-sm border border-[#D4AF37]/40">
                 <Sparkles className="w-2.5 h-2.5 text-[#D4AF37]" />
                 Best Seller
               </span>
             )}
             {discountPercent > 0 && (
-              <span className="bg-emerald-700 text-white text-[10px] font-bold px-2 py-0.5 rounded-full shadow-sm">
+              <span className="bg-emerald-700 text-white text-[8.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full shadow-sm">
                 Save {discountPercent}%
               </span>
             )}
           </div>
 
           {/* Metal & Purity Badge */}
-          <div className="absolute bottom-3 left-3 z-10">
-            <span className="bg-white/90 backdrop-blur-md text-stone-800 text-[10px] font-medium tracking-wide px-2 py-0.5 rounded-md border border-stone-200 shadow-sm">
+          <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10">
+            <span className="bg-white/95 backdrop-blur-md text-stone-800 text-[8.5px] sm:text-[10px] font-semibold tracking-wide px-1.5 sm:px-2 py-0.5 rounded border border-stone-200 shadow-sm">
               {product.purity} {product.metal}
             </span>
           </div>
         </div>
 
         {/* Product Details */}
-        <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between space-y-2">
+        <div className="p-3 sm:p-5 flex-1 flex flex-col justify-between space-y-1.5 sm:space-y-2">
           <div>
-            <div className="flex items-center justify-between text-[11px] text-stone-600 mb-1">
-              <span>SKU: {product.sku}</span>
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-stone-600 mb-0.5">
+              <span className="truncate max-w-[90px] sm:max-w-none">SKU: {product.sku}</span>
               <span>{product.weightGrams}g</span>
             </div>
-            <h3 className="font-serif text-base sm:text-lg font-medium text-stone-900 group-hover:text-[#9A7B1C] transition-colors line-clamp-1">
+            <h3 className="font-serif text-xs sm:text-base lg:text-lg font-medium text-stone-900 group-hover:text-[#9A7B1C] transition-colors line-clamp-1 leading-snug">
               {product.name}
             </h3>
           </div>
 
           {/* Pricing & Add to Cart button */}
-          <div className="pt-2 border-t border-stone-100 flex items-center justify-between">
-            <div>
-              <div className="text-base sm:text-lg font-bold text-stone-900">
+          <div className="pt-1.5 sm:pt-2 border-t border-stone-100 flex items-center justify-between gap-1">
+            <div className="min-w-0">
+              <div className="text-sm sm:text-lg font-bold text-stone-900 truncate">
                 ₹{product.price.toLocaleString('en-IN')}
               </div>
               {product.mrp > product.price && (
-                <div className="text-xs text-stone-500 line-through">
+                <div className="text-[10px] sm:text-xs text-stone-400 line-through truncate">
                   ₹{product.mrp.toLocaleString('en-IN')}
                 </div>
               )}
@@ -121,7 +121,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               type="button"
               onClick={handleQuickAdd}
               disabled={product.stock <= 0}
-              className={`p-2.5 rounded-full flex items-center justify-center transition-all shadow-sm ${
+              className={`p-2 sm:p-2.5 rounded-full flex items-center justify-center transition-all shadow-sm flex-shrink-0 active:scale-95 ${
                 addedAnimation
                   ? 'bg-emerald-600 text-white'
                   : product.stock <= 0
@@ -132,9 +132,9 @@ export default function ProductCard({ product }: ProductCardProps) {
               aria-label={`Add ${product.name} to cart`}
             >
               {addedAnimation ? (
-                <Check className="w-4 h-4" />
+                <Check className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
               ) : (
-                <ShoppingBag className="w-4 h-4 text-[#FAF8F5]" />
+                <ShoppingBag className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[#FAF8F5]" />
               )}
             </button>
           </div>

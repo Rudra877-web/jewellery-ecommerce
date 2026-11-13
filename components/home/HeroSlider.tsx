@@ -71,7 +71,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
   return (
     <section
-      className="relative w-full h-[520px] sm:h-[600px] lg:h-[680px] overflow-hidden bg-stone-950 select-none group"
+      className="relative w-full h-[460px] sm:h-[600px] lg:h-[680px] overflow-hidden bg-stone-950 select-none group"
       onMouseEnter={() => setIsPaused(true)}
       onMouseLeave={() => setIsPaused(false)}
       onTouchStart={handleTouchStart}
@@ -99,23 +99,23 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
               }}
             />
             {/* Multi-layered luxury overlay */}
-            <div className="absolute inset-0 bg-gradient-to-r from-stone-950/90 via-stone-950/60 to-transparent" />
-            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/90 via-transparent to-stone-950/30" />
+            <div className="absolute inset-0 bg-gradient-to-r from-stone-950/95 via-stone-950/70 sm:via-stone-950/60 to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-t from-stone-950/95 via-transparent to-stone-950/40" />
 
             {/* Slide Content */}
-            <div className="relative z-20 max-w-7xl mx-auto h-full px-6 sm:px-10 lg:px-16 flex flex-col justify-center">
-              <div className="max-w-2xl space-y-4 sm:space-y-6">
-                <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#E6CA65] text-xs uppercase tracking-widest font-medium backdrop-blur-sm">
-                  <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
-                  <span>Exclusive Indian Haute Joaillerie</span>
+            <div className="relative z-20 max-w-7xl mx-auto h-full px-5 sm:px-10 lg:px-16 flex flex-col justify-center">
+              <div className="max-w-2xl space-y-3.5 sm:space-y-6">
+                <div className="inline-flex items-center gap-1.5 sm:gap-2 px-2.5 sm:px-3 py-1 rounded-full bg-[#D4AF37]/20 border border-[#D4AF37]/40 text-[#E6CA65] text-[10.5px] sm:text-xs uppercase tracking-widest font-medium backdrop-blur-sm">
+                  <Sparkles className="w-3 h-3 sm:w-3.5 sm:h-3.5 text-[#D4AF37]" />
+                  <span>Haute Joaillerie 2026</span>
                 </div>
 
-                <h1 className="font-serif text-3xl sm:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.15]">
+                <h1 className="font-serif text-2xl sm:text-5xl lg:text-6xl font-semibold text-white tracking-tight leading-[1.2]">
                   {slide.title}
                 </h1>
 
                 {slide.subtitle && (
-                  <p className="text-sm sm:text-base lg:text-lg text-stone-300 font-light max-w-xl leading-relaxed">
+                  <p className="text-xs sm:text-base lg:text-lg text-stone-300 font-light max-w-xl leading-relaxed line-clamp-3 sm:line-clamp-none">
                     {slide.subtitle}
                   </p>
                 )}
@@ -123,7 +123,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                 <div className="pt-2 sm:pt-4">
                   <Link
                     href={slide.ctaLink || '/category/all'}
-                    className="inline-flex items-center justify-center px-8 py-4 bg-[#D4AF37] hover:bg-[#B38F24] text-stone-950 text-xs sm:text-sm uppercase tracking-widest font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-[#FAF8F5]/30"
+                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-[#D4AF37] hover:bg-[#B38F24] text-stone-950 text-xs sm:text-sm uppercase tracking-widest font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-[#FAF8F5]/30 active:scale-95"
                   >
                     {slide.ctaText || 'Shop Collection'}
                   </Link>
@@ -134,12 +134,12 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
         );
       })}
 
-      {/* Navigation Arrows */}
+      {/* Navigation Arrows (Desktop & Tablet) */}
       {activeSlides.length > 1 && (
         <>
           <button
             onClick={handlePrev}
-            className="absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-stone-900/60 hover:bg-[#D4AF37] text-white hover:text-stone-950 backdrop-blur-md border border-white/20 transition-all duration-200 opacity-80 group-hover:opacity-100"
+            className="hidden sm:flex absolute left-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-stone-900/60 hover:bg-[#D4AF37] text-white hover:text-stone-950 backdrop-blur-md border border-white/20 transition-all duration-200 opacity-80 group-hover:opacity-100"
             aria-label="Previous slide"
           >
             <ChevronLeft className="w-5 h-5 sm:w-6 sm:h-6" />
@@ -147,7 +147,7 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
 
           <button
             onClick={handleNext}
-            className="absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-stone-900/60 hover:bg-[#D4AF37] text-white hover:text-stone-950 backdrop-blur-md border border-white/20 transition-all duration-200 opacity-80 group-hover:opacity-100"
+            className="hidden sm:flex absolute right-4 top-1/2 -translate-y-1/2 z-30 p-3 rounded-full bg-stone-900/60 hover:bg-[#D4AF37] text-white hover:text-stone-950 backdrop-blur-md border border-white/20 transition-all duration-200 opacity-80 group-hover:opacity-100"
             aria-label="Next slide"
           >
             <ChevronRight className="w-5 h-5 sm:w-6 sm:h-6" />

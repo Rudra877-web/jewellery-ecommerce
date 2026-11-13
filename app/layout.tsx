@@ -1,8 +1,9 @@
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 import { Cormorant_Garamond, Plus_Jakarta_Sans } from 'next/font/google';
 import './globals.css';
 import CartDrawer from '@/components/cart/CartDrawer';
 import WhatsAppFloatingWidget from '@/components/layout/WhatsAppFloatingWidget';
+import MobileBottomNav from '@/components/layout/MobileBottomNav';
 
 const cormorantGaramond = Cormorant_Garamond({
   subsets: ['latin'],
@@ -17,6 +18,14 @@ const plusJakartaSans = Plus_Jakarta_Sans({
   variable: '--font-jakarta',
   display: 'swap',
 });
+
+export const viewport: Viewport = {
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 5,
+  viewportFit: 'cover',
+  themeColor: '#1C1917',
+};
 
 export const metadata: Metadata = {
   title: 'Jewellery Mate | Handcrafted Fine Indian Jewellery',
@@ -49,10 +58,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en" className={`${cormorantGaramond.variable} ${plusJakartaSans.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1C1917] antialiased">
+      <body className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1C1917] antialiased pb-16 lg:pb-0">
         {children}
         <CartDrawer />
         <WhatsAppFloatingWidget />
+        <MobileBottomNav />
       </body>
     </html>
   );

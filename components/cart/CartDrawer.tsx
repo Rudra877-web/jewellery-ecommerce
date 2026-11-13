@@ -33,13 +33,13 @@ export default function CartDrawer() {
         onClick={closeDrawer}
       />
 
-      <div className="fixed inset-y-0 right-0 max-w-full flex pl-10">
-        <div className="w-screen max-w-md bg-white shadow-2xl flex flex-col">
+      <div className="fixed inset-y-0 right-0 max-w-full flex pl-0 sm:pl-10">
+        <div className="w-screen sm:max-w-md bg-white shadow-2xl flex flex-col">
           {/* Drawer Header */}
-          <div className="p-5 border-b border-stone-200 flex items-center justify-between bg-stone-50">
+          <div className="p-4 sm:p-5 border-b border-stone-200 flex items-center justify-between bg-stone-50">
             <div className="flex items-center gap-2">
               <ShoppingBag className="w-5 h-5 text-[#9A7B1C]" />
-              <h2 className="font-serif text-xl font-semibold text-stone-900 tracking-wide">
+              <h2 className="font-serif text-lg sm:text-xl font-semibold text-stone-900 tracking-wide">
                 Your Jewellery Bag ({items.length})
               </h2>
             </div>

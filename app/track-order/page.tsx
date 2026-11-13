@@ -92,7 +92,7 @@ function TrackOrderContent() {
   return (
     <div className="flex flex-col min-h-screen bg-[#FAF9F6]">
       <Header />
-      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 w-full">
+      <main className="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-12 pb-24 sm:pb-12 w-full">
         {/* Title */}
         <div className="text-center space-y-2 mb-10">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-[#D4AF37]/15 border border-[#D4AF37]/30 text-[#9A7B1C] text-xs uppercase tracking-widest font-semibold">
