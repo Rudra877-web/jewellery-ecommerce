@@ -9,7 +9,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/homepage/TC-001_live_homepage_desktop_pass.png",
     "bugId": "None",
-    "durationMs": 5332
+    "durationMs": 5751
   },
   {
     "testId": "TC-002",
@@ -21,7 +21,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/responsive/TC-002_live_mobile_responsive_pass.png",
     "bugId": "None",
-    "durationMs": 3420
+    "durationMs": 7560
   },
   {
     "testId": "TC-003",
@@ -33,7 +33,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/responsive/TC-003_live_tablet_responsive_pass.png",
     "bugId": "None",
-    "durationMs": 2546
+    "durationMs": 3710
   },
   {
     "testId": "TC-004",
@@ -45,7 +45,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/catalog/TC-004_live_category_rings_pass.png",
     "bugId": "None",
-    "durationMs": 3086
+    "durationMs": 3489
   },
   {
     "testId": "TC-005",
@@ -57,7 +57,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/product_details/TC-005_live_pdp_inspection_pass.png",
     "bugId": "None",
-    "durationMs": 3328
+    "durationMs": 5254
   },
   {
     "testId": "TC-006",
@@ -69,7 +69,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/product_details/TC-006_live_pincode_check_pass.png",
     "bugId": "None",
-    "durationMs": 2776
+    "durationMs": 2662
   },
   {
     "testId": "TC-007",
@@ -81,7 +81,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/navigation/TC-007_live_search_interaction_pass.png",
     "bugId": "None",
-    "durationMs": 3806
+    "durationMs": 3942
   },
   {
     "testId": "TC-008",
@@ -93,7 +93,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/cart/TC-008_live_cart_drawer_pass.png",
     "bugId": "None",
-    "durationMs": 2087
+    "durationMs": 1860
   },
   {
     "testId": "TC-009",
@@ -105,7 +105,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/order_tracking/TC-009_live_order_tracking_page_pass.png",
     "bugId": "None",
-    "durationMs": 1973
+    "durationMs": 2205
   },
   {
     "testId": "TC-010",
@@ -117,7 +117,7 @@
     "status": "FAIL",
     "screenshot": "screenshots/modules/admin_security/TC-010_live_admin_route_check.png",
     "bugId": "BUG-001",
-    "durationMs": 2724
+    "durationMs": 3012
   },
   {
     "testId": "TC-011",
@@ -129,7 +129,7 @@
     "status": "FAIL",
     "screenshot": "screenshots/modules/admin_security/TC-011_live_admin_api_check.png",
     "bugId": "BUG-002",
-    "durationMs": 517
+    "durationMs": 494
   },
   {
     "testId": "TC-012",
@@ -141,7 +141,7 @@
     "status": "RETESTED PASS",
     "screenshot": "screenshots/modules/admin_security/TC-012_local_admin_guard_retested_pass.png",
     "bugId": "BUG-001",
-    "durationMs": 3954
+    "durationMs": 5020
   },
   {
     "testId": "TC-013",
@@ -153,7 +153,7 @@
     "status": "RETESTED PASS",
     "screenshot": "screenshots/modules/admin_security/TC-013_local_admin_api_retested_pass.png",
     "bugId": "BUG-002",
-    "durationMs": 176
+    "durationMs": 336
   },
   {
     "testId": "TC-014",
@@ -165,7 +165,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_security/TC-014_admin_login_negative_pass.png",
     "bugId": "None",
-    "durationMs": 3947
+    "durationMs": 5988
   },
   {
     "testId": "TC-015",
@@ -177,7 +177,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_dashboard/TC-015_admin_login_positive_pass.png",
     "bugId": "None",
-    "durationMs": 2922
+    "durationMs": 3021
   },
   {
     "testId": "TC-016",
@@ -189,7 +189,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_dashboard/TC-016_admin_dashboard_metrics_pass.png",
     "bugId": "None",
-    "durationMs": 98
+    "durationMs": 123
   },
   {
     "testId": "TC-017",
@@ -201,7 +201,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_orders/TC-017_admin_orders_list_pass.png",
     "bugId": "None",
-    "durationMs": 2409
+    "durationMs": 3071
   },
   {
     "testId": "TC-018",
@@ -213,7 +213,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_products/TC-018_admin_products_catalog_pass.png",
     "bugId": "None",
-    "durationMs": 2422
+    "durationMs": 2909
   },
   {
     "testId": "TC-019",
@@ -225,7 +225,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_slider/TC-019_admin_slider_manager_pass.png",
     "bugId": "None",
-    "durationMs": 1957
+    "durationMs": 2152
   },
   {
     "testId": "TC-020",
@@ -237,7 +237,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_settings/TC-020_admin_settings_view_pass.png",
     "bugId": "None",
-    "durationMs": 1884
+    "durationMs": 3830
   },
   {
     "testId": "TC-021",
@@ -249,7 +249,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/integrations/TC-021_admin_shiprocket_test_pass.png",
     "bugId": "None",
-    "durationMs": 2119
+    "durationMs": 2142
   },
   {
     "testId": "TC-022",
@@ -261,7 +261,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/integrations/TC-022_admin_whatsapp_test_pass.png",
     "bugId": "None",
-    "durationMs": 2107
+    "durationMs": 2220
   },
   {
     "testId": "TC-023",
@@ -273,7 +273,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_sync/TC-023_admin_sync_config_pass.png",
     "bugId": "None",
-    "durationMs": 2037
+    "durationMs": 2434
   },
   {
     "testId": "TC-024",
@@ -285,7 +285,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_import/TC-024_admin_csv_import_pass.png",
     "bugId": "None",
-    "durationMs": 2083
+    "durationMs": 2033
   },
   {
     "testId": "TC-025",
@@ -297,19 +297,19 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-025_customer_register_form_pass.png",
     "bugId": "None",
-    "durationMs": 3434
+    "durationMs": 2998
   },
   {
     "testId": "TC-026",
     "module": "Customer Auth",
     "scenario": "Customer Account Creation with Unique Phone & Email",
-    "steps": "1. Submit registration with Name: Aarav Sharma, Phone: 9835316123\n2. Verify HTTP 200 response and customer token creation.",
+    "steps": "1. Submit registration with Name: Aarav Sharma, Phone: 9814273660\n2. Verify HTTP 200 response and customer token creation.",
     "expectedResult": "System creates User record in PostgreSQL and establishes customer session.",
     "actualResult": "User created successfully (HTTP 200, user: Aarav Sharma).",
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-026_customer_registration_success_pass.png",
     "bugId": "None",
-    "durationMs": 1056
+    "durationMs": 454
   },
   {
     "testId": "TC-027",
@@ -321,7 +321,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-027_customer_register_duplicate_pass.png",
     "bugId": "None",
-    "durationMs": 398
+    "durationMs": 160
   },
   {
     "testId": "TC-028",
@@ -333,7 +333,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-028_customer_login_view_pass.png",
     "bugId": "None",
-    "durationMs": 2269
+    "durationMs": 1649
   },
   {
     "testId": "TC-029",
@@ -345,7 +345,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-029_customer_login_negative_pass.png",
     "bugId": "None",
-    "durationMs": 763
+    "durationMs": 772
   },
   {
     "testId": "TC-030",
@@ -357,7 +357,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_account/TC-030_customer_account_redirect_pass.png",
     "bugId": "None",
-    "durationMs": 3279
+    "durationMs": 2899
   },
   {
     "testId": "TC-031",
@@ -369,7 +369,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/product_details/TC-031_pdp_metal_variant_pass.png",
     "bugId": "None",
-    "durationMs": 3805
+    "durationMs": 6253
   },
   {
     "testId": "TC-032",
@@ -381,7 +381,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/cart/TC-032_add_to_bag_pass.png",
     "bugId": "None",
-    "durationMs": 2120
+    "durationMs": 2091
   },
   {
     "testId": "TC-033",
@@ -393,7 +393,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/checkout/TC-033_empty_cart_checkout_guard_pass.png",
     "bugId": "None",
-    "durationMs": 2624
+    "durationMs": 2504
   },
   {
     "testId": "TC-034",
@@ -405,7 +405,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/checkout/TC-034_checkout_order_placement_retested_pass.png",
     "bugId": "BUG-003",
-    "durationMs": 29024
+    "durationMs": 28919
   },
   {
     "testId": "TC-035",
@@ -417,7 +417,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/checkout/TC-035_order_success_screen_pass.png",
     "bugId": "None",
-    "durationMs": 174
+    "durationMs": 126
   },
   {
     "testId": "TC-036",
@@ -429,7 +429,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/order_tracking/TC-036_order_tracking_success_pass.png",
     "bugId": "None",
-    "durationMs": 5079
+    "durationMs": 4880
   },
   {
     "testId": "TC-037",
@@ -441,7 +441,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/order_tracking/TC-037_order_tracking_404_pass.png",
     "bugId": "None",
-    "durationMs": 4892
+    "durationMs": 4533
   },
   {
     "testId": "TC-038",
@@ -453,7 +453,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-038_about_us_page_pass.png",
     "bugId": "None",
-    "durationMs": 2013
+    "durationMs": 1943
   },
   {
     "testId": "TC-039",
@@ -465,7 +465,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-039_contact_us_page_pass.png",
     "bugId": "None",
-    "durationMs": 1877
+    "durationMs": 1805
   },
   {
     "testId": "TC-040",
@@ -477,7 +477,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-040_shipping_policy_pass.png",
     "bugId": "None",
-    "durationMs": 1953
+    "durationMs": 1768
   },
   {
     "testId": "TC-041",
@@ -489,7 +489,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-041_returns_policy_pass.png",
     "bugId": "None",
-    "durationMs": 1892
+    "durationMs": 1823
   },
   {
     "testId": "TC-042",
@@ -501,7 +501,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_products/TC-042_admin_product_bestseller_toggle_pass.png",
     "bugId": "None",
-    "durationMs": 5815
+    "durationMs": 5665
   },
   {
     "testId": "TC-043",
@@ -513,6 +513,6 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_security/TC-043_admin_logout_pass.png",
     "bugId": "None",
-    "durationMs": 4044
+    "durationMs": 3934
   }
 ]
