@@ -120,12 +120,19 @@ export default function HeroSlider({ slides }: HeroSliderProps) {
                   </p>
                 )}
 
-                <div className="pt-2 sm:pt-4">
+                <div className="pt-2 sm:pt-4 flex flex-wrap items-center gap-2.5 sm:gap-3">
                   <Link
                     href={slide.ctaLink || '/category/all'}
-                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-[#D4AF37] hover:bg-[#B38F24] text-stone-950 text-xs sm:text-sm uppercase tracking-widest font-semibold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-[#FAF8F5]/30 active:scale-95"
+                    className="inline-flex items-center justify-center px-6 py-3 sm:px-8 sm:py-4 bg-[#D4AF37] hover:bg-[#B38F24] text-stone-950 text-xs sm:text-sm uppercase tracking-widest font-bold rounded-full shadow-lg hover:shadow-2xl hover:scale-105 transition-all duration-300 border border-[#FAF8F5]/30 active:scale-95"
                   >
                     {slide.ctaText || 'Shop Collection'}
+                  </Link>
+
+                  <Link
+                    href="/category/necklaces"
+                    className="inline-flex items-center justify-center px-5 py-3 sm:px-7 sm:py-4 bg-stone-900/60 hover:bg-stone-900 text-stone-100 text-xs sm:text-sm uppercase tracking-widest font-semibold rounded-full backdrop-blur-md border border-[#D4AF37]/50 hover:border-[#D4AF37] transition-all duration-300 active:scale-95"
+                  >
+                    Temple & Bridal
                   </Link>
                 </div>
               </div>

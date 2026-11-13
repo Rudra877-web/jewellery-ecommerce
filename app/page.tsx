@@ -1,6 +1,7 @@
 import React from 'react';
 import Header from '@/components/layout/Header';
 import HeroSlider from '@/components/home/HeroSlider';
+import TrustBar from '@/components/home/TrustBar';
 import CategoriesSection from '@/components/home/CategoriesSection';
 import BestSellingSection from '@/components/home/BestSellingSection';
 import Footer from '@/components/layout/Footer';
@@ -106,6 +107,9 @@ export default async function HomePage() {
 
       {/* 2. Full-width Hero Slider */}
       <HeroSlider slides={slides} />
+
+      {/* 2.5 Royal Heritage Assurance Trust Bar */}
+      <TrustBar />
 
       {/* 3. Categories Section */}
       <CategoriesSection categories={categories} />

@@ -1,6 +1,6 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
 import {
   ShoppingBag,
@@ -13,6 +13,7 @@ import {
   MapPin,
   Clock,
   IndianRupee,
+  Heart,
 } from 'lucide-react';
 import { ProductData } from '@/types/jewellery';
 import { useCartStore } from '@/lib/cart-store';
@@ -44,8 +45,35 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
   });
 
   const [quantity, setQuantity] = useState(1);
+  const [selectedPurity, setSelectedPurity] = useState(product.purity || '22K');
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const [pincode, setPincode] = useState('');
   const [pincodeLoading, setPincodeLoading] = useState(false);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('jm_wishlist');
+      if (stored) {
+        const list = JSON.parse(stored);
+        if (Array.isArray(list) && list.includes(product.id)) {
+          setIsWishlisted(true);
+        }
+      }
+    } catch {}
+  }, [product.id]);
+
+  const toggleWishlist = () => {
+    const next = !isWishlisted;
+    setIsWishlisted(next);
+    try {
+      const stored = localStorage.getItem('jm_wishlist');
+      const list: string[] = stored ? JSON.parse(stored) : [];
+      const updated = next
+        ? [...new Set([...list, product.id])]
+        : list.filter((id) => id !== product.id);
+      localStorage.setItem('jm_wishlist', JSON.stringify(updated));
+    } catch {}
+  };
   const [pincodeResult, setPincodeResult] = useState<{
     city: string;
     state: string;
@@ -117,7 +145,7 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
         image: selectedImage,
         stock: product.stock,
         metal: product.metal,
-        purity: product.purity,
+        purity: selectedPurity || product.purity,
         weightGrams: product.weightGrams,
       },
       quantity
@@ -171,17 +199,36 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
             {/* Badges Overlay */}
             <div className="absolute top-4 left-4 flex flex-col gap-2 z-10 pointer-events-none">
               {product.isBestseller && (
-                <span className="inline-flex items-center gap-1.5 bg-[#171717] text-[#E6CA65] text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full border border-[#D4AF37]/50 shadow-md">
+                <span className="inline-flex items-center gap-1.5 bg-[#171717]/90 backdrop-blur-sm text-[#E6CA65] text-xs font-semibold uppercase tracking-wider px-3 py-1 rounded-full border border-[#D4AF37]/50 shadow-md">
                   <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
                   Best Seller
                 </span>
               )}
               {discountPercent > 0 && (
-                <span className="bg-emerald-700 text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
+                <span className="bg-emerald-700/95 backdrop-blur-sm text-white text-xs font-bold px-2.5 py-1 rounded-full shadow-md">
                   Save {discountPercent}%
                 </span>
               )}
             </div>
+
+            {/* Wishlist Button (Top-Right) */}
+            <button
+              type="button"
+              onClick={toggleWishlist}
+              className={`absolute top-4 right-4 z-20 p-2.5 rounded-full transition-all duration-200 shadow-md active:scale-75 ${
+                isWishlisted
+                  ? 'bg-rose-50 text-rose-600 scale-105 border border-rose-300'
+                  : 'bg-white/90 hover:bg-white text-stone-700 hover:text-rose-600 backdrop-blur-sm border border-stone-200'
+              }`}
+              aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+              title={isWishlisted ? 'Wishlisted' : 'Save piece'}
+            >
+              <Heart
+                className={`w-5 h-5 transition-colors ${
+                  isWishlisted ? 'fill-rose-600 stroke-rose-600' : 'stroke-current'
+                }`}
+              />
+            </button>
 
             <div className="absolute bottom-3 right-3 bg-stone-900/70 backdrop-blur-sm text-stone-200 text-[10px] uppercase tracking-wider px-2.5 py-1 rounded-md pointer-events-none">
               Hover to Zoom
@@ -254,6 +301,43 @@ export default function ProductDetailView({ product, relatedProducts }: ProductD
             </div>
             <div className="text-[11px] text-stone-500">
               Inclusive of all taxes • Complimentary insured transit
+            </div>
+          </div>
+
+          {/* Metal Purity Selector */}
+          <div className="space-y-2">
+            <div className="flex items-center justify-between text-xs">
+              <span className="font-semibold text-stone-900 uppercase tracking-wider">
+                Select Gold / Purity:
+              </span>
+              <span className="text-[#9A7B1C] font-semibold flex items-center gap-1">
+                <ShieldCheck className="w-3.5 h-3.5 text-[#D4AF37]" />
+                {selectedPurity} Pure Gold
+              </span>
+            </div>
+            <div className="grid grid-cols-3 gap-2">
+              {[
+                { label: '22K Gold', sub: '916 BIS Hallmark', val: '22K' },
+                { label: '18K Gold', sub: '750 Hallmarked', val: '18K' },
+                { label: '14K Gold', sub: '585 Everyday', val: '14K' },
+              ].map((item) => {
+                const isSelected = selectedPurity === item.val;
+                return (
+                  <button
+                    key={item.val}
+                    type="button"
+                    onClick={() => setSelectedPurity(item.val)}
+                    className={`py-2 px-2.5 rounded-xl text-xs font-semibold border transition-all text-center flex flex-col items-center justify-center active:scale-95 ${
+                      isSelected
+                        ? 'border-[#D4AF37] bg-[#FDFBF7] text-stone-950 shadow-sm ring-1 ring-[#D4AF37]'
+                        : 'border-stone-200 bg-white text-stone-600 hover:border-stone-400'
+                    }`}
+                  >
+                    <span className="font-bold">{item.label}</span>
+                    <span className="text-[9.5px] font-normal text-stone-500 mt-0.5">{item.sub}</span>
+                  </button>
+                );
+              })}
             </div>
           </div>
 

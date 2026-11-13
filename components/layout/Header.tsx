@@ -457,26 +457,36 @@ export default function Header({ categories = [] }: HeaderProps) {
 
             {/* Categories Listing */}
             <div className="space-y-1">
-              <div className="text-[11px] uppercase tracking-widest font-bold text-[#9A7B1C] px-2 py-1">
+              <div className="text-[10px] uppercase tracking-widest font-bold text-[#9A7B1C] px-2 py-1">
                 Fine Jewellery Collections
               </div>
               <Link
                 href="/category/all"
                 onClick={() => setMobileMenuOpen(false)}
-                className="flex items-center justify-between px-3 py-2 text-sm font-semibold text-stone-900 hover:bg-[#FAF8F5] hover:text-[#9A7B1C] rounded-lg transition-colors"
+                className="flex items-center justify-between px-3 py-2 text-sm font-semibold text-stone-900 hover:bg-[#FAF8F5] hover:text-[#9A7B1C] rounded-xl transition-colors group"
               >
-                <span>All Creations</span>
-                <ArrowRight className="w-3.5 h-3.5 text-stone-400" />
+                <div className="flex items-center gap-2.5">
+                  <div className="w-7 h-7 rounded-lg bg-[#D4AF37]/15 border border-[#D4AF37]/40 flex items-center justify-center text-[#9A7B1C]">
+                    <Sparkles className="w-3.5 h-3.5 text-[#D4AF37]" />
+                  </div>
+                  <span>All Creations</span>
+                </div>
+                <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:translate-x-1 transition-transform" />
               </Link>
               {navCategories.map((cat) => (
                 <Link
                   key={cat.id}
                   href={`/category/${cat.slug}`}
                   onClick={() => setMobileMenuOpen(false)}
-                  className="flex items-center justify-between px-3 py-2 text-sm font-medium text-stone-800 hover:bg-[#FAF8F5] hover:text-[#9A7B1C] rounded-lg transition-colors"
+                  className="flex items-center justify-between px-3 py-2 text-sm font-medium text-stone-800 hover:bg-[#FAF8F5] hover:text-[#9A7B1C] rounded-xl transition-colors group"
                 >
-                  <span>{cat.name}</span>
-                  <ArrowRight className="w-3.5 h-3.5 text-stone-400" />
+                  <div className="flex items-center gap-2.5">
+                    <div className="w-7 h-7 rounded-lg bg-stone-100 border border-stone-200 flex items-center justify-center text-stone-600 group-hover:border-[#D4AF37] group-hover:text-[#9A7B1C] transition-colors">
+                      <Gem className="w-3.5 h-3.5" />
+                    </div>
+                    <span>{cat.name}</span>
+                  </div>
+                  <ArrowRight className="w-3.5 h-3.5 text-stone-400 group-hover:translate-x-1 transition-transform" />
                 </Link>
               ))}
             </div>

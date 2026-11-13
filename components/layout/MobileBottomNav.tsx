@@ -197,10 +197,47 @@ export default function MobileBottomNav() {
                       setSearchModalOpen(false);
                       window.location.href = `/category/all?search=${encodeURIComponent(tag)}`;
                     }}
-                    className="text-xs px-2.5 py-1 rounded-full bg-stone-100 hover:bg-[#FAF8F5] hover:border-[#D4AF37] border border-stone-200 text-stone-700 transition-colors"
+                    className="text-xs px-2.5 py-1 rounded-full bg-stone-100 hover:bg-[#FAF8F5] hover:border-[#D4AF37] border border-stone-200 text-stone-700 transition-colors active:scale-95"
                   >
                     {tag}
                   </button>
+                ))}
+              </div>
+            </div>
+
+            {/* Quick Category Shortcuts */}
+            <div className="mt-4 pt-3 border-t border-stone-100">
+              <span className="text-[10px] uppercase tracking-wider font-semibold text-stone-600 block mb-2.5">
+                Browse Collections:
+              </span>
+              <div className="grid grid-cols-5 gap-2 text-center">
+                {[
+                  { name: 'Rings', slug: 'rings', img: '/categories/rings.jpg' },
+                  { name: 'Necklaces', slug: 'necklaces', img: '/categories/necklaces.jpg' },
+                  { name: 'Earrings', slug: 'earrings', img: '/categories/earrings.jpg' },
+                  { name: 'Bangles', slug: 'bangles-bracelets', img: '/categories/bangles.jpg' },
+                  { name: 'Solitaires', slug: 'solitaires', img: '/categories/solitaires.jpg' },
+                ].map((c) => (
+                  <Link
+                    key={c.slug}
+                    href={`/category/${c.slug}`}
+                    onClick={() => setSearchModalOpen(false)}
+                    className="flex flex-col items-center group active:scale-95"
+                  >
+                    <div className="w-12 h-12 rounded-xl overflow-hidden border border-[#D4AF37]/40 shadow-sm group-hover:border-[#D4AF37]">
+                      <img
+                        src={c.img}
+                        alt={c.name}
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform"
+                        onError={(e) => {
+                          (e.currentTarget as HTMLImageElement).src = '/products/gold-floral-ring.jpg';
+                        }}
+                      />
+                    </div>
+                    <span className="text-[10.5px] font-medium text-stone-800 mt-1 truncate max-w-[55px]">
+                      {c.name}
+                    </span>
+                  </Link>
                 ))}
               </div>
             </div>
@@ -215,3 +252,4 @@ export default function MobileBottomNav() {
     </>
   );
 }
+

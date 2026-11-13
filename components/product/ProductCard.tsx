@@ -1,8 +1,8 @@
 'use client';
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { ShoppingBag, Sparkles, Check } from 'lucide-react';
+import { ShoppingBag, Sparkles, Check, Heart, ShieldCheck } from 'lucide-react';
 import { ProductData } from '@/types/jewellery';
 import { useCartStore } from '@/lib/cart-store';
 import { handleImageError, FALLBACK_JEWELLERY_IMAGE } from '@/lib/image-fallback';
@@ -14,7 +14,35 @@ interface ProductCardProps {
 export default function ProductCard({ product }: ProductCardProps) {
   const [isHovered, setIsHovered] = useState(false);
   const [addedAnimation, setAddedAnimation] = useState(false);
+  const [isWishlisted, setIsWishlisted] = useState(false);
   const addItem = useCartStore((s) => s.addItem);
+
+  useEffect(() => {
+    try {
+      const stored = localStorage.getItem('jm_wishlist');
+      if (stored) {
+        const list = JSON.parse(stored);
+        if (Array.isArray(list) && list.includes(product.id)) {
+          setIsWishlisted(true);
+        }
+      }
+    } catch {}
+  }, [product.id]);
+
+  const toggleWishlist = (e: React.MouseEvent) => {
+    e.preventDefault();
+    e.stopPropagation();
+    const next = !isWishlisted;
+    setIsWishlisted(next);
+    try {
+      const stored = localStorage.getItem('jm_wishlist');
+      const list: string[] = stored ? JSON.parse(stored) : [];
+      const updated = next
+        ? [...new Set([...list, product.id])]
+        : list.filter((id) => id !== product.id);
+      localStorage.setItem('jm_wishlist', JSON.stringify(updated));
+    } catch {}
+  };
 
   const imagesList = Array.isArray(product.images)
     ? product.images
@@ -69,24 +97,44 @@ export default function ProductCard({ product }: ProductCardProps) {
             onError={handleImageError}
           />
 
-          {/* Badges Overlay */}
+          {/* Badges Overlay (Top-Left) */}
           <div className="absolute top-2 left-2 sm:top-3 sm:left-3 flex flex-col gap-1 items-start z-10">
             {product.isBestseller && (
-              <span className="inline-flex items-center gap-1 bg-[#1A1A1A] text-[#FAF8F5] text-[8.5px] sm:text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-sm border border-[#D4AF37]/40">
+              <span className="inline-flex items-center gap-1 bg-stone-950/90 backdrop-blur-sm text-[#FAF8F5] text-[8.5px] sm:text-[10px] font-semibold uppercase tracking-wider px-2 py-0.5 sm:px-2.5 sm:py-1 rounded-full shadow-sm border border-[#D4AF37]/50">
                 <Sparkles className="w-2.5 h-2.5 text-[#D4AF37]" />
                 Best Seller
               </span>
             )}
             {discountPercent > 0 && (
-              <span className="bg-emerald-700 text-white text-[8.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full shadow-sm">
+              <span className="bg-emerald-700/95 backdrop-blur-sm text-white text-[8.5px] sm:text-[10px] font-bold px-1.5 sm:px-2 py-0.5 rounded-full shadow-sm">
                 Save {discountPercent}%
               </span>
             )}
           </div>
 
-          {/* Metal & Purity Badge */}
+          {/* Wishlist Heart Button (Top-Right) */}
+          <button
+            type="button"
+            onClick={toggleWishlist}
+            className={`absolute top-2 right-2 sm:top-3 sm:right-3 z-10 p-1.5 sm:p-2 rounded-full transition-all duration-200 shadow-sm active:scale-75 ${
+              isWishlisted
+                ? 'bg-rose-50 text-rose-600 scale-105 border border-rose-200'
+                : 'bg-white/80 hover:bg-white text-stone-600 hover:text-rose-600 backdrop-blur-sm border border-stone-200/80'
+            }`}
+            aria-label={isWishlisted ? 'Remove from wishlist' : 'Add to wishlist'}
+            title={isWishlisted ? 'Wishlisted' : 'Save piece'}
+          >
+            <Heart
+              className={`w-3.5 h-3.5 sm:w-4 sm:h-4 transition-colors ${
+                isWishlisted ? 'fill-rose-600 stroke-rose-600' : 'stroke-current'
+              }`}
+            />
+          </button>
+
+          {/* Metal & Purity Badge (Bottom-Left) */}
           <div className="absolute bottom-2 left-2 sm:bottom-3 sm:left-3 z-10">
-            <span className="bg-white/95 backdrop-blur-md text-stone-800 text-[8.5px] sm:text-[10px] font-semibold tracking-wide px-1.5 sm:px-2 py-0.5 rounded border border-stone-200 shadow-sm">
+            <span className="bg-white/95 backdrop-blur-md text-stone-900 text-[8.5px] sm:text-[10px] font-semibold tracking-wide px-2 py-0.5 rounded border border-[#D4AF37]/40 shadow-sm flex items-center gap-1">
+              <ShieldCheck className="w-2.5 h-2.5 text-[#9A7B1C]" />
               {product.purity} {product.metal}
             </span>
           </div>
@@ -95,9 +143,9 @@ export default function ProductCard({ product }: ProductCardProps) {
         {/* Product Details */}
         <div className="p-3 sm:p-5 flex-1 flex flex-col justify-between space-y-1.5 sm:space-y-2">
           <div>
-            <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-stone-600 mb-0.5">
+            <div className="flex items-center justify-between text-[10px] sm:text-[11px] text-stone-500 mb-0.5">
               <span className="truncate max-w-[90px] sm:max-w-none">SKU: {product.sku}</span>
-              <span>{product.weightGrams}g</span>
+              <span className="font-medium text-stone-600">{product.weightGrams}g</span>
             </div>
             <h3 className="font-serif text-xs sm:text-base lg:text-lg font-medium text-stone-900 group-hover:text-[#9A7B1C] transition-colors line-clamp-1 leading-snug">
               {product.name}
@@ -121,7 +169,7 @@ export default function ProductCard({ product }: ProductCardProps) {
               type="button"
               onClick={handleQuickAdd}
               disabled={product.stock <= 0}
-              className={`p-2 sm:p-2.5 rounded-full flex items-center justify-center transition-all shadow-sm flex-shrink-0 active:scale-95 ${
+              className={`p-2 sm:p-2.5 rounded-full flex items-center justify-center transition-all shadow-sm flex-shrink-0 active:scale-90 ${
                 addedAnimation
                   ? 'bg-emerald-600 text-white'
                   : product.stock <= 0
