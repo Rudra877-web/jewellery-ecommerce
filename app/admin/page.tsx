@@ -13,10 +13,17 @@ import {
   Sparkles,
 } from 'lucide-react';
 import prisma from '@/lib/prisma';
+import { checkAdminSession } from '@/lib/admin-auth';
+import { redirect } from 'next/navigation';
 
 export const dynamic = 'force-dynamic';
 
 export default async function AdminDashboardPage() {
+  const isAdmin = await checkAdminSession();
+  if (!isAdmin) {
+    redirect('/admin/login');
+  }
+
   // Aggregate Metrics
   const [
     totalProducts,

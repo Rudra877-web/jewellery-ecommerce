@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
+import { checkAdminSession } from '@/lib/admin-auth';
 
 export async function GET() {
   try {
@@ -14,6 +15,11 @@ export async function GET() {
 
 export async function POST(req: NextRequest) {
   try {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized: Admin session required' }, { status: 401 });
+    }
+
     const { title, subtitle, ctaText, ctaLink, imageUrl, sortOrder, isActive } = await req.json();
 
     if (!title || !imageUrl) {
@@ -43,6 +49,11 @@ export async function POST(req: NextRequest) {
 
 export async function PATCH(req: NextRequest) {
   try {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized: Admin session required' }, { status: 401 });
+    }
+
     const { id, isActive, sortOrder } = await req.json();
 
     const data: Record<string, unknown> = {};

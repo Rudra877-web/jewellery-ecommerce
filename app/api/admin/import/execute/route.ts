@@ -1,8 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { upsertCatalogRows, CsvCatalogRow } from '@/lib/catalog-sync';
+import { checkAdminSession } from '@/lib/admin-auth';
 
 export async function POST(req: NextRequest) {
   try {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized: Admin session required' }, { status: 401 });
+    }
+
     const { rows, filename } = await req.json();
 
     if (!Array.isArray(rows) || rows.length === 0) {

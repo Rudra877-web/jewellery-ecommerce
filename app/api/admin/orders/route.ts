@@ -2,9 +2,15 @@ import { NextRequest, NextResponse } from 'next/server';
 import prisma from '@/lib/prisma';
 import { createShiprocketOrder } from '@/lib/shiprocket';
 import { sendOwnerOrderWhatsAppNotification } from '@/lib/whatsapp';
+import { checkAdminSession } from '@/lib/admin-auth';
 
 export async function GET(req: NextRequest) {
   try {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized: Admin session required' }, { status: 401 });
+    }
+
     const status = req.nextUrl.searchParams.get('status') || 'ALL';
 
     const where: Record<string, unknown> = {};
@@ -29,6 +35,11 @@ export async function GET(req: NextRequest) {
 // Actions: retry-shiprocket or resend-whatsapp
 export async function POST(req: NextRequest) {
   try {
+    const isAdmin = await checkAdminSession();
+    if (!isAdmin) {
+      return NextResponse.json({ error: 'Unauthorized: Admin session required' }, { status: 401 });
+    }
+
     const { action, orderId } = await req.json();
 
     const order = await prisma.order.findUnique({

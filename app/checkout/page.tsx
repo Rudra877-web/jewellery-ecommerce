@@ -150,7 +150,7 @@ export default function CheckoutPage() {
         const data = await res.json();
         if (res.ok && data.success) {
           clearCart();
-          router.push(data.redirectUrl);
+          window.location.href = data.redirectUrl;
         } else {
           setErrorMessage(data.error || 'Failed to place order. Please try again.');
           setSubmitting(false);
@@ -218,7 +218,7 @@ export default function CheckoutPage() {
               const verifyData = await verifyRes.json();
               if (verifyRes.ok && verifyData.success) {
                 clearCart();
-                router.push(verifyData.redirectUrl);
+                window.location.href = verifyData.redirectUrl;
               } else {
                 setErrorMessage(verifyData.error || 'Payment verification failed.');
                 setSubmitting(false);

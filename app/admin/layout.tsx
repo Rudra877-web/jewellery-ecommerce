@@ -1,8 +1,8 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { usePathname } from 'next/navigation';
+import { usePathname, useRouter } from 'next/navigation';
 import {
   LayoutDashboard,
   Gem,
@@ -14,6 +14,7 @@ import {
   ExternalLink,
   LogOut,
   Sparkles,
+  Loader2,
 } from 'lucide-react';
 
 export default function AdminLayout({
@@ -22,10 +23,48 @@ export default function AdminLayout({
   children: React.ReactNode;
 }) {
   const pathname = usePathname();
+  const router = useRouter();
+  const [isAuthenticated, setIsAuthenticated] = useState<boolean | null>(null);
+
+  useEffect(() => {
+    if (pathname === '/admin/login') {
+      setIsAuthenticated(true);
+      return;
+    }
+
+    fetch('/api/admin/auth/me')
+      .then((res) => res.json())
+      .then((data) => {
+        if (data.authenticated) {
+          setIsAuthenticated(true);
+        } else {
+          setIsAuthenticated(false);
+          router.replace('/admin/login');
+        }
+      })
+      .catch(() => {
+        setIsAuthenticated(false);
+        router.replace('/admin/login');
+      });
+  }, [pathname, router]);
 
   // If on login page, render full screen without admin sidebar
   if (pathname === '/admin/login') {
     return <>{children}</>;
+  }
+
+  // Show security verification loader while checking auth
+  if (isAuthenticated === null || isAuthenticated === false) {
+    return (
+      <div className="min-h-screen bg-stone-950 flex flex-col items-center justify-center p-4 text-stone-300 space-y-4">
+        <div className="w-12 h-12 rounded-full border border-[#D4AF37]/30 flex items-center justify-center bg-[#D4AF37]/10">
+          <Loader2 className="w-6 h-6 text-[#D4AF37] animate-spin" />
+        </div>
+        <p className="text-xs uppercase tracking-widest text-[#D4AF37] font-semibold">
+          Verifying Admin Authorization...
+        </p>
+      </div>
+    );
   }
 
   const navLinks = [
