@@ -751,7 +751,36 @@ export async function generateComprehensivePdfWithImages() {
     });
     const page = await browser.newPage();
     await page.setContent(html, { waitUntil: 'load', timeout: 60000 });
-    await new Promise((r) => setTimeout(r, 3000));
+    
+    // Optimize embedded images inside the browser to reduce PDF file size while preserving high visual quality
+    console.log('Optimizing embedded images for crisp A4 PDF rendering...');
+    await page.evaluate(async () => {
+      const imgs = Array.from(document.querySelectorAll('img'));
+      for (const img of imgs) {
+        if (!img.src || !img.src.startsWith('data:image')) continue;
+        try {
+          const canvas = document.createElement('canvas');
+          const maxDim = 850;
+          let w = img.naturalWidth || img.width || 850;
+          let h = img.naturalHeight || img.height || 500;
+          if (w > maxDim) {
+            h = Math.round((h * maxDim) / w);
+            w = maxDim;
+          }
+          canvas.width = w;
+          canvas.height = h;
+          const ctx = canvas.getContext('2d');
+          if (ctx) {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, w, h);
+            ctx.drawImage(img, 0, 0, w, h);
+            img.src = canvas.toDataURL('image/jpeg', 0.72);
+          }
+        } catch { }
+      }
+    });
+    
+    await new Promise((r) => setTimeout(r, 2000));
     const pdfPath = path.join(process.cwd(), 'public', 'Jewellery_Ecommerce_Complete_QA_Testing_Report_With_Screenshots.pdf');
     await page.pdf({
       path: pdfPath,
