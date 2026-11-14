@@ -57,8 +57,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className={`${cormorantGaramond.variable} ${plusJakartaSans.variable}`}>
-      <body className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1C1917] antialiased pb-16 lg:pb-0">
+    <html lang="en" className={`${cormorantGaramond.variable} ${plusJakartaSans.variable} overflow-x-hidden`}>
+      <body className="min-h-screen flex flex-col bg-[#FAF9F6] text-[#1C1917] antialiased pb-16 lg:pb-0 overflow-x-hidden max-w-full">
         {children}
         <CartDrawer />
         <WhatsAppFloatingWidget />

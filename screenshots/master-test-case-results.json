@@ -9,7 +9,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/homepage/TC-001_live_homepage_desktop_pass.png",
     "bugId": "None",
-    "durationMs": 5751
+    "durationMs": 7958
   },
   {
     "testId": "TC-002",
@@ -21,7 +21,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/responsive/TC-002_live_mobile_responsive_pass.png",
     "bugId": "None",
-    "durationMs": 7560
+    "durationMs": 4100
   },
   {
     "testId": "TC-003",
@@ -33,7 +33,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/responsive/TC-003_live_tablet_responsive_pass.png",
     "bugId": "None",
-    "durationMs": 3710
+    "durationMs": 2626
   },
   {
     "testId": "TC-004",
@@ -45,7 +45,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/catalog/TC-004_live_category_rings_pass.png",
     "bugId": "None",
-    "durationMs": 3489
+    "durationMs": 2709
   },
   {
     "testId": "TC-005",
@@ -57,7 +57,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/product_details/TC-005_live_pdp_inspection_pass.png",
     "bugId": "None",
-    "durationMs": 5254
+    "durationMs": 2821
   },
   {
     "testId": "TC-006",
@@ -69,7 +69,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/product_details/TC-006_live_pincode_check_pass.png",
     "bugId": "None",
-    "durationMs": 2662
+    "durationMs": 2548
   },
   {
     "testId": "TC-007",
@@ -81,7 +81,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/navigation/TC-007_live_search_interaction_pass.png",
     "bugId": "None",
-    "durationMs": 3942
+    "durationMs": 3702
   },
   {
     "testId": "TC-008",
@@ -93,7 +93,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/cart/TC-008_live_cart_drawer_pass.png",
     "bugId": "None",
-    "durationMs": 1860
+    "durationMs": 1854
   },
   {
     "testId": "TC-009",
@@ -105,7 +105,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/order_tracking/TC-009_live_order_tracking_page_pass.png",
     "bugId": "None",
-    "durationMs": 2205
+    "durationMs": 1722
   },
   {
     "testId": "TC-010",
@@ -113,11 +113,11 @@
     "scenario": "Live Production Admin Route Guard Audit (/admin)",
     "steps": "1. Direct browser to https://jewellery-ecommerce-opal.vercel.app/admin without authentication\n2. Check whether unauthenticated user is redirected to /admin/login or allowed into dashboard.",
     "expectedResult": "Unauthenticated visitors MUST be redirected immediately to /admin/login.",
-    "actualResult": "VULNERABILITY CONFIRMED ON LIVE DEPLOYMENT: /admin rendered without requiring authentication! Fix exists locally in app/admin/layout.tsx and app/admin/page.tsx pending deployment approval.",
-    "status": "FAIL",
+    "actualResult": "Secure: Live site redirected to /admin/login.",
+    "status": "PASS",
     "screenshot": "screenshots/modules/admin_security/TC-010_live_admin_route_check.png",
-    "bugId": "BUG-001",
-    "durationMs": 3012
+    "bugId": "None",
+    "durationMs": 2407
   },
   {
     "testId": "TC-011",
@@ -125,11 +125,11 @@
     "scenario": "Live Production Admin Orders API Audit (/api/admin/orders)",
     "steps": "1. Dispatch unauthenticated GET fetch to https://jewellery-ecommerce-opal.vercel.app/api/admin/orders\n2. Verify HTTP response code.",
     "expectedResult": "API must reject unauthenticated requests with HTTP 401 Unauthorized.",
-    "actualResult": "VULNERABILITY CONFIRMED ON LIVE DEPLOYMENT: Server returned HTTP 200 without credentials! Fix exists locally in app/api/admin/orders/route.ts pending deployment approval.",
-    "status": "FAIL",
+    "actualResult": "Protected: Server returned HTTP 401.",
+    "status": "PASS",
     "screenshot": "screenshots/modules/admin_security/TC-011_live_admin_api_check.png",
-    "bugId": "BUG-002",
-    "durationMs": 494
+    "bugId": "None",
+    "durationMs": 152
   },
   {
     "testId": "TC-012",
@@ -141,7 +141,7 @@
     "status": "RETESTED PASS",
     "screenshot": "screenshots/modules/admin_security/TC-012_local_admin_guard_retested_pass.png",
     "bugId": "BUG-001",
-    "durationMs": 5020
+    "durationMs": 3696
   },
   {
     "testId": "TC-013",
@@ -153,7 +153,7 @@
     "status": "RETESTED PASS",
     "screenshot": "screenshots/modules/admin_security/TC-013_local_admin_api_retested_pass.png",
     "bugId": "BUG-002",
-    "durationMs": 336
+    "durationMs": 116
   },
   {
     "testId": "TC-014",
@@ -165,7 +165,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_security/TC-014_admin_login_negative_pass.png",
     "bugId": "None",
-    "durationMs": 5988
+    "durationMs": 3952
   },
   {
     "testId": "TC-015",
@@ -173,11 +173,11 @@
     "scenario": "Admin Login Positive Test & Session Creation",
     "steps": "1. Enter valid admin password \"admin\"\n2. Submit form\n3. Verify redirect to /admin dashboard.",
     "expectedResult": "Admin cookie set; user redirected to administrative dashboard.",
-    "actualResult": "Successfully authenticated and redirected to http://localhost:3000/admin/login.",
+    "actualResult": "Successfully authenticated and redirected to http://localhost:3000/admin.",
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_dashboard/TC-015_admin_login_positive_pass.png",
     "bugId": "None",
-    "durationMs": 3021
+    "durationMs": 2949
   },
   {
     "testId": "TC-016",
@@ -189,7 +189,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_dashboard/TC-016_admin_dashboard_metrics_pass.png",
     "bugId": "None",
-    "durationMs": 123
+    "durationMs": 114
   },
   {
     "testId": "TC-017",
@@ -201,7 +201,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_orders/TC-017_admin_orders_list_pass.png",
     "bugId": "None",
-    "durationMs": 3071
+    "durationMs": 2587
   },
   {
     "testId": "TC-018",
@@ -209,11 +209,11 @@
     "scenario": "Admin Product Catalog Listing & Stock Flags",
     "steps": "1. Navigate to /admin/products\n2. Verify product rows, category filters, and bestseller toggles.",
     "expectedResult": "Catalog displays fine jewellery products with prices, SKU, stock counters, and edit controls.",
-    "actualResult": "Catalog loaded displaying 0 active products.",
+    "actualResult": "Catalog loaded displaying 50 active products.",
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_products/TC-018_admin_products_catalog_pass.png",
     "bugId": "None",
-    "durationMs": 2909
+    "durationMs": 2802
   },
   {
     "testId": "TC-019",
@@ -225,7 +225,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_slider/TC-019_admin_slider_manager_pass.png",
     "bugId": "None",
-    "durationMs": 2152
+    "durationMs": 2142
   },
   {
     "testId": "TC-020",
@@ -237,7 +237,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_settings/TC-020_admin_settings_view_pass.png",
     "bugId": "None",
-    "durationMs": 3830
+    "durationMs": 2331
   },
   {
     "testId": "TC-021",
@@ -249,7 +249,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/integrations/TC-021_admin_shiprocket_test_pass.png",
     "bugId": "None",
-    "durationMs": 2142
+    "durationMs": 2229
   },
   {
     "testId": "TC-022",
@@ -261,7 +261,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/integrations/TC-022_admin_whatsapp_test_pass.png",
     "bugId": "None",
-    "durationMs": 2220
+    "durationMs": 2151
   },
   {
     "testId": "TC-023",
@@ -273,7 +273,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_sync/TC-023_admin_sync_config_pass.png",
     "bugId": "None",
-    "durationMs": 2434
+    "durationMs": 2088
   },
   {
     "testId": "TC-024",
@@ -285,7 +285,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_import/TC-024_admin_csv_import_pass.png",
     "bugId": "None",
-    "durationMs": 2033
+    "durationMs": 2079
   },
   {
     "testId": "TC-025",
@@ -297,19 +297,19 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-025_customer_register_form_pass.png",
     "bugId": "None",
-    "durationMs": 2998
+    "durationMs": 3479
   },
   {
     "testId": "TC-026",
     "module": "Customer Auth",
     "scenario": "Customer Account Creation with Unique Phone & Email",
-    "steps": "1. Submit registration with Name: Aarav Sharma, Phone: 9814273660\n2. Verify HTTP 200 response and customer token creation.",
+    "steps": "1. Submit registration with Name: Aarav Sharma, Phone: 9840661088\n2. Verify HTTP 200 response and customer token creation.",
     "expectedResult": "System creates User record in PostgreSQL and establishes customer session.",
     "actualResult": "User created successfully (HTTP 200, user: Aarav Sharma).",
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-026_customer_registration_success_pass.png",
     "bugId": "None",
-    "durationMs": 454
+    "durationMs": 280
   },
   {
     "testId": "TC-027",
@@ -321,7 +321,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-027_customer_register_duplicate_pass.png",
     "bugId": "None",
-    "durationMs": 160
+    "durationMs": 137
   },
   {
     "testId": "TC-028",
@@ -333,7 +333,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-028_customer_login_view_pass.png",
     "bugId": "None",
-    "durationMs": 1649
+    "durationMs": 1677
   },
   {
     "testId": "TC-029",
@@ -345,7 +345,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_auth/TC-029_customer_login_negative_pass.png",
     "bugId": "None",
-    "durationMs": 772
+    "durationMs": 716
   },
   {
     "testId": "TC-030",
@@ -357,7 +357,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/customer_account/TC-030_customer_account_redirect_pass.png",
     "bugId": "None",
-    "durationMs": 2899
+    "durationMs": 2764
   },
   {
     "testId": "TC-031",
@@ -369,7 +369,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/product_details/TC-031_pdp_metal_variant_pass.png",
     "bugId": "None",
-    "durationMs": 6253
+    "durationMs": 5555
   },
   {
     "testId": "TC-032",
@@ -381,7 +381,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/cart/TC-032_add_to_bag_pass.png",
     "bugId": "None",
-    "durationMs": 2091
+    "durationMs": 2155
   },
   {
     "testId": "TC-033",
@@ -393,7 +393,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/checkout/TC-033_empty_cart_checkout_guard_pass.png",
     "bugId": "None",
-    "durationMs": 2504
+    "durationMs": 2638
   },
   {
     "testId": "TC-034",
@@ -405,7 +405,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/checkout/TC-034_checkout_order_placement_retested_pass.png",
     "bugId": "BUG-003",
-    "durationMs": 28919
+    "durationMs": 28889
   },
   {
     "testId": "TC-035",
@@ -417,7 +417,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/checkout/TC-035_order_success_screen_pass.png",
     "bugId": "None",
-    "durationMs": 126
+    "durationMs": 121
   },
   {
     "testId": "TC-036",
@@ -429,7 +429,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/order_tracking/TC-036_order_tracking_success_pass.png",
     "bugId": "None",
-    "durationMs": 4880
+    "durationMs": 4870
   },
   {
     "testId": "TC-037",
@@ -441,7 +441,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/order_tracking/TC-037_order_tracking_404_pass.png",
     "bugId": "None",
-    "durationMs": 4533
+    "durationMs": 5512
   },
   {
     "testId": "TC-038",
@@ -453,7 +453,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-038_about_us_page_pass.png",
     "bugId": "None",
-    "durationMs": 1943
+    "durationMs": 2183
   },
   {
     "testId": "TC-039",
@@ -465,7 +465,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-039_contact_us_page_pass.png",
     "bugId": "None",
-    "durationMs": 1805
+    "durationMs": 1898
   },
   {
     "testId": "TC-040",
@@ -477,7 +477,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-040_shipping_policy_pass.png",
     "bugId": "None",
-    "durationMs": 1768
+    "durationMs": 1980
   },
   {
     "testId": "TC-041",
@@ -489,7 +489,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/static_pages/TC-041_returns_policy_pass.png",
     "bugId": "None",
-    "durationMs": 1823
+    "durationMs": 2598
   },
   {
     "testId": "TC-042",
@@ -501,7 +501,7 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_products/TC-042_admin_product_bestseller_toggle_pass.png",
     "bugId": "None",
-    "durationMs": 5665
+    "durationMs": 6613
   },
   {
     "testId": "TC-043",
@@ -513,6 +513,54 @@
     "status": "PASS",
     "screenshot": "screenshots/modules/admin_security/TC-043_admin_logout_pass.png",
     "bugId": "None",
-    "durationMs": 3934
+    "durationMs": 4166
+  },
+  {
+    "testId": "TC-044",
+    "module": "Mobile Responsiveness",
+    "scenario": "Mobile Bottom Navigation Bar & Visual Search Modal Verification",
+    "steps": "1. Set viewport to 390x844 (iPhone 14/15)\n2. Verify 5-tab fixed navigation bar\n3. Tap Search tab to open full-screen search modal with category shortcuts.",
+    "expectedResult": "Bottom nav renders fixed at bottom with Home, Catalog, Search, Bag, and Account; search modal opens smoothly with visual category tiles.",
+    "actualResult": "Verified 5-tab bottom navigation (Search modal triggered: true); zero layout clipping.",
+    "status": "PASS",
+    "screenshot": "screenshots/modules/mobile_responsive/TC-044_mobile_bottom_nav_pass.png",
+    "bugId": "None",
+    "durationMs": 5082
+  },
+  {
+    "testId": "TC-045",
+    "module": "Mobile Responsiveness",
+    "scenario": "Mobile Curated Collections Horizontal Pills & 2-Column Product Grid",
+    "steps": "1. Open Homepage on 390x844 mobile viewport\n2. Scroll to Curated Collections\n3. Inspect Best Selling creations grid columns.",
+    "expectedResult": "Homepage renders horizontal snap-scroll category pills and an elegant 2-column product grid without single-column bloat.",
+    "actualResult": "Curated collections carousel loaded; Best Selling rendered as 2-column luxury grid (2 columns detected).",
+    "status": "PASS",
+    "screenshot": "screenshots/modules/mobile_responsive/TC-045_mobile_2col_grid_pass.png",
+    "bugId": "None",
+    "durationMs": 4295
+  },
+  {
+    "testId": "TC-046",
+    "module": "Mobile Responsiveness",
+    "scenario": "Product Detail Page (PDP) Mobile Sticky Purchase Bar & Purity Selector",
+    "steps": "1. Open PDP on 390x844 mobile viewport\n2. Scroll down past jewellery specifications\n3. Verify sticky bottom action bar appears above bottom tab bar.",
+    "expectedResult": "Fixed sticky bar displays live price and \"Add to Bag\" / \"Buy Now\" CTA buttons above mobile bottom navigation.",
+    "actualResult": "Mobile sticky bottom purchase bar active and verified (Found: true).",
+    "status": "PASS",
+    "screenshot": "screenshots/modules/mobile_responsive/TC-046_mobile_pdp_sticky_bar_pass.png",
+    "bugId": "None",
+    "durationMs": 9525
+  },
+  {
+    "testId": "TC-047",
+    "module": "Mobile Responsiveness",
+    "scenario": "Mobile Cart Drawer Opening & Zero-Horizontal-Overflow Verification",
+    "steps": "1. On PDP, click \"Add to Bag\"\n2. Verify Cart Drawer slides in smoothly\n3. Check document.documentElement.scrollWidth vs window.innerWidth.",
+    "expectedResult": "Cart drawer opens full-width on mobile with zero horizontal screen tearing (scrollWidth === innerWidth).",
+    "actualResult": "Cart drawer opened; screen width 390px, scroll width 390px (Has overflow: false).",
+    "status": "PASS",
+    "screenshot": "screenshots/modules/mobile_responsive/TC-047_mobile_cart_drawer_no_overflow_pass.png",
+    "bugId": "None",
+    "durationMs": 2537
   }
 ]
